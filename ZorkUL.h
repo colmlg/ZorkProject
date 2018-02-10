@@ -23,9 +23,9 @@ private:
     void displayItems();
     void printCurrentRoomInfo();
 public:
-	ZorkUL();
-	void play();
-	string go(string direction);
+    ZorkUL();
+    void play();
+    string go(string direction);
 };
 
 #endif /*ZORKUL_H_*/
