@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ZorkUL.h"
-#include <stdlib.h>
+#include <cstdlib>
 using namespace std;
 
 int main() {
@@ -11,6 +11,7 @@ int main() {
 
 ZorkUL::ZorkUL() {
     createRooms();
+    character = new Character();
 }
 
 void ZorkUL::createRooms() {
@@ -56,33 +57,18 @@ void ZorkUL::createRooms() {
     rooms[9] = j;
 }
 
-/**
- *  Main play routine.  Loops until end of play.
- */
 void ZorkUL::play() {
     printWelcome();
-
-    // Enter the main command loop.  Here we repeatedly read commands and
-    // execute them until the ZorkUL game is over.
-
     bool finished = false;
+    
     while (!finished) {
         Command* command = parser.getCommand();
-        // Pass dereferenced command and check for end of game.
         finished = processCommand(*command);
-        // Free the memory allocated by "parser.getCommand()"
-        //   with ("return new Command(...)")
         delete command;
     }
-    cout << endl;
     cout << "end" << endl;
 }
 
-/**
- * Given a command, process (that is: execute) the command.
- * If this command ends the ZorkUL game, true is returned, otherwise false is
- * returned.
- */
 bool ZorkUL::processCommand(Command command) {
     if (command.isUnknown()) {
         cout << "invalid input" << endl;
@@ -96,6 +82,8 @@ bool ZorkUL::processCommand(Command command) {
         printMap();
     } else if (commandWord == "teleport") {
         teleport();
+    } else if (commandWord == "inventory") {
+        printInventory();
     } else if (commandWord == "quit") {
         return true; /**signal to quit*/
     } else if (!command.hasSecondWord()) { //MARK: Two word commands
@@ -111,7 +99,7 @@ bool ZorkUL::processCommand(Command command) {
     return false;
 }
 
-/** COMMANDS **/
+//MARK: Commands
 void ZorkUL::printHelp() {
     cout << "valid inputs are; " << endl;
     parser.showCommands();
@@ -138,22 +126,25 @@ void ZorkUL::printMap() {
     cout << "[j]                " << endl;
 }
 
+void ZorkUL::printInventory() {
+    cout << character->longDescription() << endl;
+}
+
 void ZorkUL::takeItem(Command command) {
-    cout << "you're trying to take " + command.getSecondWord() << endl;
     int location = currentRoom->indexOfItem(command.getSecondWord());
-    if (location < 0) {
-        cout << "item is not in room" << endl;
+    if (location == -1) {
+        cout << "Item is not in room." << endl;
         return;
     }
+    
     Item item = currentRoom->getItem(location);
     character->addItem(item);
     currentRoom->removeItemFromRoom(location);
-    
-    
-    cout << "item is in room" << endl;
-    cout << "index number " << +location << endl;
-    cout << endl;
-    cout << currentRoom->longDescription() << endl;
+    printCurrentRoomInfo();
+}
+
+void ZorkUL::placeItem(Command command) {
+    string itemName = command.getSecondWord(); 
 }
 
 void ZorkUL::teleport() {
@@ -164,8 +155,6 @@ void ZorkUL::teleport() {
 
 void ZorkUL::goRoom(Command command) {
     string direction = command.getSecondWord();
-
-    // Try to leave current room.
     Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
@@ -181,9 +170,6 @@ void ZorkUL::printCurrentRoomInfo() {
 }
 
 string ZorkUL::go(string direction) {
-    //Make the direction lowercase
-    //transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
-    //Move to the next room
     Room* nextRoom = currentRoom->nextRoom(direction);
     if (nextRoom == NULL)
         return ("direction null");

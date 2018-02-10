@@ -36,8 +36,3 @@ void Item::setValue(float inValue) {
 string Item::getShortDescription() {
     return description;
 }
-
-string Item::getLongDescription() {
-    return " item(s), " + description + ".\n";
-}
-

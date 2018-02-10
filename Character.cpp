@@ -1,18 +1,27 @@
 #include "Character.h"
 
 void Character::addItem(Item item) {
-    std::cout << "about to crash";
     itemsInCharacter.push_back(item);
-    std::cout << "didnt crash!";
 }
 
 string Character::longDescription() {
-    
-    string itemList = "\n Item list:\n";
-    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
-        itemList += "\t" + (*i).getLongDescription() + "\n";
+    if (itemsInCharacter.empty()) {
+        return "Your inventory is empty.";
+    }
+
+    string itemList;
+    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
+        itemList += (*i).getShortDescription() + "\n";
+    }
     return itemList;
 }
 
-
-
+Item Character::getItem(string itemName) {
+    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
+        Item item = *i;
+        if (item.getShortDescription() == itemName) {
+            return item;
+        }
+    }
+    
+}

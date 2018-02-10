@@ -9,6 +9,7 @@ private:
     vector <Item> itemsInCharacter;
 public:
     void addItem(Item item);
+    Item getItem(string itemName);
 
 public:
     string longDescription();

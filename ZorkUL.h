@@ -27,6 +27,8 @@ private:
     void printMap();
     void teleport();
     void takeItem(Command command);
+    void printInventory();
+    void placeItem(Command command);
 public:
     ZorkUL();
     void play();

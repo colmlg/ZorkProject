@@ -18,7 +18,6 @@ public:
     Item(string description, int inWeight, float inValue);
     Item(string description);
     string getShortDescription();
-    string getLongDescription();
     int getWeight();
     void setWeight(int weightGrams);
     float getValue();
