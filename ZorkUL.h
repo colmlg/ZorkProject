@@ -5,6 +5,7 @@
 #include "Parser.h"
 #include "Room.h"
 #include "Item.h"
+#include "Character.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -12,6 +13,7 @@ using namespace std;
 class ZorkUL {
 private:
     Parser parser;
+    Character *character;
     Room *currentRoom;
     Room *rooms[10];
     void createRooms();
@@ -22,6 +24,9 @@ private:
     void createItems();
     void displayItems();
     void printCurrentRoomInfo();
+    void printMap();
+    void teleport();
+    void takeItem(Command command);
 public:
     ZorkUL();
     void play();

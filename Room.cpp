@@ -65,23 +65,29 @@ int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString) {
-    int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1) {
+int Room::indexOfItem(string itemName) {
+    int numberOfItems = itemsInRoom.size();
+    if (numberOfItems < 1) {
         return false;
-    } else if (itemsInRoom.size() > 0) {
-        int x = 0;
-        for (int n = sizeItems; n > 0; n--) {
-            // compare inString with short description
-            int tempFlag = inString.compare(itemsInRoom[x].getShortDescription());
-            if (tempFlag == 0) {
-                //Removes Item???
-                itemsInRoom.erase(itemsInRoom.begin() + x);
-                return x;
-            }
-            x++;
+    }
+    
+    for (int i = 0; i < numberOfItems; i++) {
+        bool itemIsInRoom = itemName == itemsInRoom[i].getShortDescription();
+        if (itemIsInRoom) {
+            return i;
         }
     }
+    
+    //Return value of -1 indicates item is not in the room
     return -1;
 }
+
+Item Room::getItem(int location) {
+    return itemsInRoom[location];
+}
+
+void Room::removeItemFromRoom(int location) {
+    itemsInRoom.erase(itemsInRoom.begin() + location);
+}
+
 

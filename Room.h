@@ -25,7 +25,8 @@ public:
     Room* nextRoom(string direction);
     void addItem(Item *inItem);
     string displayItem();
-    int isItemInRoom(string inString);
+    int indexOfItem(string inString);
+    Item getItem(int location);
     void removeItemFromRoom(int location);
 };
 

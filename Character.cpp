@@ -1,24 +1,17 @@
 #include "Character.h"
 
-Character::Character(string description) {
-    this->description = description;
-}
-
-void Character::addItem(Item &item) {
+void Character::addItem(Item item) {
+    std::cout << "about to crash";
     itemsInCharacter.push_back(item);
-}
-
-void Character::addItem(Item *item) {
-    itemsInCharacter.push_back(*item);
-    delete item;
+    std::cout << "didnt crash!";
 }
 
 string Character::longDescription() {
-    string ret = this->description;
-    ret += "\n Item list:\n";
+    
+    string itemList = "\n Item list:\n";
     for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
-        ret += "\t" + (*i).getLongDescription() + "\n";
-    return ret;
+        itemList += "\t" + (*i).getLongDescription() + "\n";
+    return itemList;
 }
 
 

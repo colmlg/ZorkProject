@@ -24,10 +24,9 @@ CommandWords::CommandWords() {
  **/
 bool CommandWords::isCommand(string aString) {
     for (unsigned int i = 0; i < validCommands.size(); i++) {
-        if (validCommands[i].compare(aString) == 0)
+        if (validCommands[i] == aString)
             return true;
     }
-    // if we get here, the string was not found in the commands
     return false;
 }
 

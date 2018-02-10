@@ -30,13 +30,13 @@ string Command::getSecondWord() {
  * Return true if this command was not understood.
  */
 bool Command::isUnknown() {
-    return (commandWord.empty());
+    return commandWord.empty();
 }
 
 /**
  * Return true if the command has a second word.
  */
 bool Command::hasSecondWord() {
-    return (!secondWord.empty());
+    return !secondWord.empty();
 }
 

@@ -4,4 +4,17 @@
         <activeConfTypeElem>4</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/colmlg/ZorkProject/ZorkUL.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/Room.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/ZorkUL.h</file>
+            <file>file:/home/colmlg/ZorkProject/Character.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/Room.h</file>
+            <file>file:/home/colmlg/ZorkProject/Item.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/Parser.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/Character.h</file>
+        </group>
+    </open-files>
 </project-private>
