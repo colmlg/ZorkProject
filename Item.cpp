@@ -1,37 +1,31 @@
 #include "Item.h"
+#include <iostream>
+using std::string;
+using std::cout;
 
-Item::Item(string inDescription, int inWeightGrams, float inValue/**, int weaponCheck*/) {
-    description = inDescription;
-    setWeight(inWeightGrams);
+Item::Item(string description, int inWeight, float inValue) {
+    this->description = description;
+    setWeight(inWeight);
     value = inValue;
-    /**weaponCheck(isWeapon);*/
 }
 
-Item::Item(string inDescription) {
-    description = inDescription;
+Item::Item(string description) {
+    this->description = description;
 }
 
-void Item::setWeight(int inWeightGrams) {
-    if (inWeightGrams > 9999 || inWeightGrams < 0)
+void Item::setWeight(int weight) {
+    if (weight > 9999 || weight < 0)
         cout << "weight invalid, must be 0<weight<9999";
     else
-        weightGrams = inWeightGrams;
+        weightGrams = weight;
 }
 
-void Item::setValue(float inValue) {
-    if (inValue > 9999 || inValue < 0)
+void Item::setValue(float value) {
+    if (value > 9999 || value < 0)
         cout << "value invalid, must be 0<value<9999";
     else
-        value = inValue;
+        this->value = value;
 }
-
-/**void Item::setWeaponCheck(int isWeapon)
-{
-    if(isWeapon > 0 || isWeapon < 0)
-        cout << "Item not a weapon" ;
-    else
-        cout << "Item is a weapon" ;
-}*/
 
 string Item::getShortDescription() {
     return description;

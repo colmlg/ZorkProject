@@ -1,25 +1,21 @@
 #ifndef ITEM_H_
 #define ITEM_H_
-
-#include <map>
 #include <string>
-#include <iostream>
-using namespace std;
 
 class Item {
 private:
-    string description;
-    string longDescription;
+    std::string description;
+    std::string longDescription;
     int weightGrams;
     float value;
     bool weaponCheck;
 
 public:
-    Item(string description, int inWeight, float inValue);
-    Item(string description);
-    string getShortDescription();
+    Item(std::string description, int inWeight, float inValue);
+    explicit Item(std::string description);
+    std::string getShortDescription();
     int getWeight();
-    void setWeight(int weightGrams);
+    void setWeight(int weight);
     float getValue();
     void setValue(float value);
     int getWeaponCheck();

@@ -2,14 +2,14 @@
 #define INVENTORY_H
 #include "Item.h"
 #include <vector>
-using std::string;
+#include <string>
 
 class Inventory {
 private:
-    vector <Item*> items;
+    std::vector <Item*> items;
 public:
     void addItem(Item* item);
-    Item* takeItem(string itemName);
-    string getItemNames();
+    Item* takeItem(std::string itemName);
+    std::string getItemNames();
 };
 #endif /* INVENTORY_H */

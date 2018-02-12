@@ -1,4 +1,5 @@
 #include "Inventory.h"
+using std::string;
 
 void Inventory::addItem(Item* item) {
     items.push_back(item);

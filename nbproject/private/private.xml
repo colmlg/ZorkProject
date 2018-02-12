@@ -9,10 +9,12 @@
         <group>
             <file>file:/home/colmlg/ZorkProject/CommandWords.h</file>
             <file>file:/home/colmlg/ZorkProject/ZorkUL.cpp</file>
+            <file>file:/home/colmlg/ZorkProject/Inventory.h</file>
+            <file>file:/home/colmlg/ZorkProject/Inventory.cpp</file>
             <file>file:/home/colmlg/ZorkProject/Room.cpp</file>
             <file>file:/home/colmlg/ZorkProject/ZorkUL.h</file>
-            <file>file:/home/colmlg/ZorkProject/Character.cpp</file>
             <file>file:/home/colmlg/ZorkProject/Room.h</file>
+            <file>file:/home/colmlg/ZorkProject/Character.cpp</file>
             <file>file:/home/colmlg/ZorkProject/Character.h</file>
         </group>
     </open-files>

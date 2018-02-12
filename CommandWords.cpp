@@ -1,5 +1,8 @@
 #include "CommandWords.h"
-
+using std::vector;
+using std::string;
+using std::cout;
+using std::endl;
 vector<string> CommandWords::validCommands;
 
 /**
