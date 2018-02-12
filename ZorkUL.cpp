@@ -3,11 +3,11 @@
 #include <cstdlib>
 using namespace std;
 
-int main() {
-    ZorkUL game;
-    game.play();
-    return 0;
-}
+//int main() {
+//    ZorkUL game;
+//    game.play();
+//    return 0;
+//}
 
 ZorkUL::ZorkUL() {
     createRooms();
@@ -95,7 +95,6 @@ bool ZorkUL::processCommand(Command command) {
     } else if (commandWord == "go") {
         goRoom(command);
     }
-    
     return false;
 }
 
