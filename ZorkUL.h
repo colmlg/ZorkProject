@@ -20,18 +20,19 @@ private:
     void printWelcome();
     bool processCommand(Command command);
     void printHelp();
-    void goRoom(Command command);
     void createItems();
     void displayItems();
-    void printCurrentRoomInfo();
-    void printMap();
-    void teleport();
-    void printInventory();
     void moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory);
 public:
     ZorkUL();
     void play();
+    string getCurrentRoomInfo();
+    //MARK: Game commands
+    void teleport();
     string go(string direction);
+    string getCharacterInventory();
+    void takeItem(string itemName);
+    void placeItem(string itemName);
 };
 
 #endif /*ZORKUL_H_*/

@@ -3,12 +3,6 @@
 #include <cstdlib>
 using namespace std;
 
-//int main() {
-//    ZorkUL game;
-//    game.play();
-//    return 0;
-//}
-
 ZorkUL::ZorkUL() {
     createRooms();
     character = new Character();
@@ -17,7 +11,7 @@ ZorkUL::ZorkUL() {
 void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
-    a->inventory->addItem(new Item("x", 1, 11));
+    a->inventory->addItem(new Item("metal_sword"));
     a->inventory->addItem(new Item("y", 2, 22));
     b = new Room("b");
     b->inventory->addItem(new Item("xx", 3, 33));
@@ -58,7 +52,7 @@ void ZorkUL::createRooms() {
 }
 
 void ZorkUL::play() {
-    printWelcome();
+//    printWelcome();
     bool finished = false;
     
     while (!finished) {
@@ -77,13 +71,13 @@ bool ZorkUL::processCommand(Command command) {
 
     string commandWord = command.getCommandWord();
     if (commandWord == "info") {
-        printHelp();
+//        printHelp();
     } else if (commandWord == "map") {
-        printMap();
+//        printMap();
     } else if (commandWord == "teleport") {
         teleport();
     } else if (commandWord == "inventory") {
-        printInventory();
+//        printInventory();
     } else if (commandWord == "quit") {
         return true; /**signal to quit*/
     } else if (!command.hasSecondWord()) { //MARK: Two word commands
@@ -93,74 +87,40 @@ bool ZorkUL::processCommand(Command command) {
     } else if (commandWord == "put") {
         moveItem(command.getSecondWord(), character->inventory, currentRoom->inventory);
     } else if (commandWord == "go") {
-        goRoom(command);
+//        goRoom(command);
     }
     return false;
 }
 
-//MARK: Commands
-void ZorkUL::printHelp() {
-    cout << "valid inputs are; " << endl;
-    parser.showCommands();
-
-}
-
-void ZorkUL::printWelcome() {
-    cout << "start" << endl;
-    cout << "info for help" << endl;
-    cout << endl;
-    cout << currentRoom->longDescription() << endl;
-}
-
-void ZorkUL::printMap() {
-    cout << "[h] --- [f] --- [g]" << endl;
-    cout << "         |         " << endl;
-    cout << "         |         " << endl;
-    cout << "[c] --- [a] --- [b]" << endl;
-    cout << "         |         " << endl;
-    cout << "         |         " << endl;
-    cout << "[i] --- [d] --- [e]" << endl;
-    cout << " |                 " << endl;
-    cout << " |                 " << endl;
-    cout << "[j]                " << endl;
-}
-
-void ZorkUL::printInventory() {
-    cout << character->inventory->getItemNames() << endl;
+string ZorkUL::getCharacterInventory() {
+    return character->inventory->getItemNames();
 }
 
 void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory) {
     Item* item = fromInventory->takeItem(itemName);
     
     if (item == NULL) {
-        cout << "No such item" << endl;
         return;
     }
     
     toInventory->addItem(item);
-    printCurrentRoomInfo();
+}
+
+void ZorkUL::takeItem(string itemName) {
+    moveItem(itemName, currentRoom->inventory, character->inventory);
+}
+
+void ZorkUL::placeItem(string itemName) {
+    moveItem(itemName, character->inventory, currentRoom->inventory);
 }
 
 void ZorkUL::teleport() {
     int roomNumber = rand() % 10;
     currentRoom = rooms[roomNumber];
-    printCurrentRoomInfo();
 }
 
-void ZorkUL::goRoom(Command command) {
-    string direction = command.getSecondWord();
-    Room* nextRoom = currentRoom->nextRoom(direction);
-
-    if (nextRoom == NULL)
-        cout << "underdefined input" << endl;
-    else {
-        currentRoom = nextRoom;
-        printCurrentRoomInfo();
-    }
-}
-
-void ZorkUL::printCurrentRoomInfo() {
-    cout << currentRoom->longDescription() << endl;
+string ZorkUL::getCurrentRoomInfo() {
+    return currentRoom->longDescription();
 }
 
 string ZorkUL::go(string direction) {

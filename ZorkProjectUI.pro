@@ -30,10 +30,10 @@ SOURCES += \
     Inventory.cpp \
     Item.cpp \
     main.cpp \
-    mainwindow.cpp \
     Parser.cpp \
     Room.cpp \
-    ZorkUL.cpp
+    ZorkUL.cpp \
+    MainWindow.cpp
 
 HEADERS += \
     Character.h \
@@ -41,10 +41,10 @@ HEADERS += \
     CommandWords.h \
     Inventory.h \
     Item.h \
-    mainwindow.h \
     Parser.h \
     Room.h \
-    ZorkUL.h
+    ZorkUL.h \
+    MainWindow.h
 
 FORMS += \
         mainwindow.ui
