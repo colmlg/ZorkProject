@@ -13,7 +13,7 @@ private:
     string description;
     map<string, Room*> exits;
     string exitString();
-    vector <Item> itemsInRoom;
+    vector <Item*> itemsInRoom;
 
 
 public:
@@ -25,9 +25,7 @@ public:
     Room* nextRoom(string direction);
     void addItem(Item *inItem);
     string displayItem();
-    int indexOfItem(string inString);
-    Item getItem(int location);
-    void removeItemFromRoom(int location);
+    Item* takeItem(string itemName);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "Character.h"
 
-void Character::addItem(Item item) {
+void Character::addItem(Item* item) {
     itemsInCharacter.push_back(item);
 }
 
@@ -10,18 +10,19 @@ string Character::longDescription() {
     }
 
     string itemList;
-    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
-        itemList += (*i).getShortDescription() + "\n";
+    for (vector<Item*>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
+        itemList += (*i)->getShortDescription() + "\n";
     }
     return itemList;
 }
 
-Item Character::getItem(string itemName) {
-    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
-        Item item = *i;
-        if (item.getShortDescription() == itemName) {
+Item* Character::getItem(string itemName) {
+    for (vector<Item*>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
+        Item* item = *i;
+        if (item->getShortDescription() == itemName) {
             return item;
         }
     }
     
+    return NULL;
 }

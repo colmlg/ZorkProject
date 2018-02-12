@@ -6,10 +6,10 @@ using namespace std;
 
 class Character {
 private:
-    vector <Item> itemsInCharacter;
+    vector <Item*> itemsInCharacter;
 public:
-    void addItem(Item item);
-    Item getItem(string itemName);
+    void addItem(Item* item);
+    Item* getItem(string itemName);
 
 public:
     string longDescription();

@@ -131,15 +131,14 @@ void ZorkUL::printInventory() {
 }
 
 void ZorkUL::takeItem(Command command) {
-    int location = currentRoom->indexOfItem(command.getSecondWord());
-    if (location == -1) {
-        cout << "Item is not in room." << endl;
+    Item* item = currentRoom->takeItem(command.getSecondWord());
+    
+    if (item == NULL) {
+        cout << "Item is not in room" << endl;
         return;
     }
     
-    Item item = currentRoom->getItem(location);
     character->addItem(item);
-    currentRoom->removeItemFromRoom(location);
     printCurrentRoomInfo();
 }
 

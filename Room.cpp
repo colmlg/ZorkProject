@@ -40,54 +40,32 @@ Room* Room::nextRoom(string direction) {
     // part of the "pair" (<string, Room*>) and return it.
 }
 
-void Room::addItem(Item *inItem) {
-    //    cout << endl;
-    //    cout << "Just added" + inItem->getLongDescription();
-    itemsInRoom.push_back(*inItem);
+void Room::addItem(Item* inItem) {
+    itemsInRoom.push_back(inItem);
 }
 
 string Room::displayItem() {
-    string tempString = "items in room = ";
-    int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
-    } else if (itemsInRoom.size() > 0) {
-        int x = (0);
-        for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].getShortDescription() + "  ";
-            x++;
-        }
-    }
-    return tempString;
-}
-
-int Room::numberOfItems() {
-    return itemsInRoom.size();
-}
-
-int Room::indexOfItem(string itemName) {
+    string listOfItems = "Items in room = ";
     int numberOfItems = itemsInRoom.size();
     if (numberOfItems < 1) {
-        return false;
-    }
-    
-    for (int i = 0; i < numberOfItems; i++) {
-        bool itemIsInRoom = itemName == itemsInRoom[i].getShortDescription();
-        if (itemIsInRoom) {
-            return i;
+        listOfItems = "No items in room";
+    } else {
+        for (int i = 0; i < numberOfItems; i++) {
+            listOfItems = listOfItems + itemsInRoom[i]->getShortDescription() + "  ";
         }
     }
-    
-    //Return value of -1 indicates item is not in the room
-    return -1;
+    return listOfItems;
 }
 
-Item Room::getItem(int location) {
-    return itemsInRoom[location];
+Item* Room::takeItem(string itemName) {
+    for (int i = 0; i < itemsInRoom.size(); i++) {
+        bool itemIsInRoom = itemName == itemsInRoom[i]->getShortDescription();
+        if (itemIsInRoom) {
+            Item* item = itemsInRoom[i];
+            itemsInRoom.erase(itemsInRoom.begin() + i);
+            return item;
+        }
+    }
+
+    return NULL; //Item is not in room
 }
-
-void Room::removeItemFromRoom(int location) {
-    itemsInRoom.erase(itemsInRoom.begin() + location);
-}
-
-
