@@ -17,11 +17,11 @@ ZorkUL::ZorkUL() {
 void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
-    a->addItem(new Item("x", 1, 11));
-    a->addItem(new Item("y", 2, 22));
+    a->inventory->addItem(new Item("x", 1, 11));
+    a->inventory->addItem(new Item("y", 2, 22));
     b = new Room("b");
-    b->addItem(new Item("xx", 3, 33));
-    b->addItem(new Item("yy", 4, 44));
+    b->inventory->addItem(new Item("xx", 3, 33));
+    b->inventory->addItem(new Item("yy", 4, 44));
     c = new Room("c");
     d = new Room("d");
     e = new Room("e");
@@ -89,9 +89,9 @@ bool ZorkUL::processCommand(Command command) {
     } else if (!command.hasSecondWord()) { //MARK: Two word commands
         cout << "incomplete input" << endl;
     } else if (commandWord == "take") {
-        takeItem(command);
+        moveItem(command.getSecondWord(), currentRoom->inventory, character->inventory);
     } else if (commandWord == "put") {
-        placeItem(command);
+        moveItem(command.getSecondWord(), character->inventory, currentRoom->inventory);
     } else if (commandWord == "go") {
         goRoom(command);
     }
@@ -127,30 +127,18 @@ void ZorkUL::printMap() {
 }
 
 void ZorkUL::printInventory() {
-    cout << character->longDescription() << endl;
+    cout << character->inventory->getItemNames() << endl;
 }
 
-void ZorkUL::takeItem(Command command) {
-    Item* item = currentRoom->takeItem(command.getSecondWord());
+void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory) {
+    Item* item = fromInventory->takeItem(itemName);
     
     if (item == NULL) {
-        cout << "Item is not in room" << endl;
+        cout << "No such item" << endl;
         return;
     }
     
-    character->addItem(item);
-    printCurrentRoomInfo();
-}
-
-void ZorkUL::placeItem(Command command) {
-    Item* item = character->takeItem(command.getSecondWord());
-    
-    if (item == NULL) {
-        cout << "Item is not in your inventory" << endl;
-        return;
-    }
-    
-    currentRoom->addItem(item);
+    toInventory->addItem(item);
     printCurrentRoomInfo();
 }
 

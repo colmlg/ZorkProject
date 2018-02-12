@@ -51,6 +51,7 @@ OBJECTS_DIR   = build/Debug/GNU-Linux/
 SOURCES       = Character.cpp \
 		Command.cpp \
 		CommandWords.cpp \
+		Inventory.cpp \
 		Item.cpp \
 		Parser.cpp \
 		Room.cpp \
@@ -58,6 +59,7 @@ SOURCES       = Character.cpp \
 OBJECTS       = build/Debug/GNU-Linux/Character.o \
 		build/Debug/GNU-Linux/Command.o \
 		build/Debug/GNU-Linux/CommandWords.o \
+		build/Debug/GNU-Linux/Inventory.o \
 		build/Debug/GNU-Linux/Item.o \
 		build/Debug/GNU-Linux/Parser.o \
 		build/Debug/GNU-Linux/Room.o \
@@ -121,12 +123,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		nbproject/nbproject/qt-Debug.pro Character.h \
 		Command.h \
 		CommandWords.h \
+		Inventory.h \
 		Item.h \
 		Parser.h \
 		Room.h \
 		ZorkUL.h Character.cpp \
 		Command.cpp \
 		CommandWords.cpp \
+		Inventory.cpp \
 		Item.cpp \
 		Parser.cpp \
 		Room.cpp \
@@ -297,8 +301,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents Character.h Command.h CommandWords.h Item.h Parser.h Room.h ZorkUL.h $(DISTDIR)/
-	$(COPY_FILE) --parents Character.cpp Command.cpp CommandWords.cpp Item.cpp Parser.cpp Room.cpp ZorkUL.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Character.h Command.h CommandWords.h Inventory.h Item.h Parser.h Room.h ZorkUL.h $(DISTDIR)/
+	$(COPY_FILE) --parents Character.cpp Command.cpp CommandWords.cpp Inventory.cpp Item.cpp Parser.cpp Room.cpp ZorkUL.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -338,6 +342,7 @@ compiler_clean:
 ####### Compile
 
 build/Debug/GNU-Linux/Character.o: Character.cpp Character.h \
+		Inventory.h \
 		Item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/Character.o Character.cpp
 
@@ -346,6 +351,10 @@ build/Debug/GNU-Linux/Command.o: Command.cpp Command.h
 
 build/Debug/GNU-Linux/CommandWords.o: CommandWords.cpp CommandWords.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/CommandWords.o CommandWords.cpp
+
+build/Debug/GNU-Linux/Inventory.o: Inventory.cpp Inventory.h \
+		Item.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/Inventory.o Inventory.cpp
 
 build/Debug/GNU-Linux/Item.o: Item.cpp Item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/Item.o Item.cpp
@@ -356,8 +365,8 @@ build/Debug/GNU-Linux/Parser.o: Parser.cpp Parser.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/Parser.o Parser.cpp
 
 build/Debug/GNU-Linux/Room.o: Room.cpp Room.h \
-		Item.h \
-		Command.h
+		Inventory.h \
+		Item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/Room.o Room.cpp
 
 build/Debug/GNU-Linux/ZorkUL.o: ZorkUL.cpp ZorkUL.h \
@@ -365,6 +374,7 @@ build/Debug/GNU-Linux/ZorkUL.o: ZorkUL.cpp ZorkUL.h \
 		Parser.h \
 		CommandWords.h \
 		Room.h \
+		Inventory.h \
 		Item.h \
 		Character.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Debug/GNU-Linux/ZorkUL.o ZorkUL.cpp

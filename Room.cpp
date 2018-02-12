@@ -1,5 +1,5 @@
 #include "Room.h"
-#include "Command.h"
+//#include "Command.h"
 
 Room::Room(string description) {
     this->description = description;
@@ -21,7 +21,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return "room = " + description + ".\n" + displayItem() + exitString();
+    return "room = " + description + ".\n" + "Items =\t" + inventory->getItemNames() + exitString();
 }
 
 string Room::exitString() {
@@ -38,34 +38,4 @@ Room* Room::nextRoom(string direction) {
         return NULL; // if exits.end() was returned, there's no room in that direction.
     return next->second; // If there is a room, remove the "second" (Room*)
     // part of the "pair" (<string, Room*>) and return it.
-}
-
-void Room::addItem(Item* inItem) {
-    itemsInRoom.push_back(inItem);
-}
-
-string Room::displayItem() {
-    string listOfItems = "Items in room = ";
-    int numberOfItems = itemsInRoom.size();
-    if (numberOfItems < 1) {
-        listOfItems = "No items in room";
-    } else {
-        for (int i = 0; i < numberOfItems; i++) {
-            listOfItems = listOfItems + itemsInRoom[i]->getShortDescription() + "  ";
-        }
-    }
-    return listOfItems;
-}
-
-Item* Room::takeItem(string itemName) {
-    for (int i = 0; i < itemsInRoom.size(); i++) {
-        bool itemIsInRoom = itemName == itemsInRoom[i]->getShortDescription();
-        if (itemIsInRoom) {
-            Item* item = itemsInRoom[i];
-            itemsInRoom.erase(itemsInRoom.begin() + i);
-            return item;
-        }
-    }
-
-    return NULL; //Item is not in room
 }

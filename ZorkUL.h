@@ -4,7 +4,7 @@
 #include "Command.h"
 #include "Parser.h"
 #include "Room.h"
-#include "Item.h"
+#include "Inventory.h"
 #include "Character.h"
 #include <iostream>
 #include <string>
@@ -26,9 +26,8 @@ private:
     void printCurrentRoomInfo();
     void printMap();
     void teleport();
-    void takeItem(Command command);
     void printInventory();
-    void placeItem(Command command);
+    void moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory);
 public:
     ZorkUL();
     void play();

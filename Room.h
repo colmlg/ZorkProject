@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "Item.h"
+#include "Inventory.h"
 using namespace std;
 using std::vector;
 
@@ -13,7 +13,6 @@ private:
     string description;
     map<string, Room*> exits;
     string exitString();
-    vector <Item*> itemsInRoom;
 
 
 public:
@@ -23,9 +22,7 @@ public:
     string shortDescription();
     string longDescription();
     Room* nextRoom(string direction);
-    void addItem(Item *inItem);
-    string displayItem();
-    Item* takeItem(string itemName);
+    Inventory* inventory = new Inventory();
 };
 
 #endif

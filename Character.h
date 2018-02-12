@@ -1,18 +1,13 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
-#include "Item.h"
+#include "Inventory.h"
 #include <vector>
 using namespace std;
 
 class Character {
 private:
-    vector <Item*> itemsInCharacter;
 public:
-    void addItem(Item* item);
-    Item* takeItem(string itemName);
-
-public:
-    string longDescription();
+    Inventory* inventory = new Inventory();
 };
 
 #endif /*CHARACTER_H_*/

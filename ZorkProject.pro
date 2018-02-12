@@ -21,7 +21,8 @@ SOURCES += \
     item.cpp \
     Parser.cpp \
     Room.cpp \
-    ZorkUL.cpp
+    ZorkUL.cpp \
+    Inventory.cpp
 
 SUBDIRS += \
     ZorkProject.pro
@@ -35,4 +36,5 @@ HEADERS += \
     Item.h \
     Parser.h \
     Room.h \
-    ZorkUL.h
+    ZorkUL.h \
+    Inventory.h
