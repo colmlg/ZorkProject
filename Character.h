@@ -9,7 +9,7 @@ private:
     vector <Item*> itemsInCharacter;
 public:
     void addItem(Item* item);
-    Item* getItem(string itemName);
+    Item* takeItem(string itemName);
 
 public:
     string longDescription();

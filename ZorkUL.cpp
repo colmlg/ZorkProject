@@ -91,7 +91,7 @@ bool ZorkUL::processCommand(Command command) {
     } else if (commandWord == "take") {
         takeItem(command);
     } else if (commandWord == "put") {
-        //TODO: placing items
+        placeItem(command);
     } else if (commandWord == "go") {
         goRoom(command);
     }
@@ -143,7 +143,15 @@ void ZorkUL::takeItem(Command command) {
 }
 
 void ZorkUL::placeItem(Command command) {
-    string itemName = command.getSecondWord(); 
+    Item* item = character->takeItem(command.getSecondWord());
+    
+    if (item == NULL) {
+        cout << "Item is not in your inventory" << endl;
+        return;
+    }
+    
+    currentRoom->addItem(item);
+    printCurrentRoomInfo();
 }
 
 void ZorkUL::teleport() {

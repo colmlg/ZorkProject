@@ -16,10 +16,11 @@ string Character::longDescription() {
     return itemList;
 }
 
-Item* Character::getItem(string itemName) {
-    for (vector<Item*>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++) {
-        Item* item = *i;
+Item* Character::takeItem(string itemName) {
+    for (int i = 0; i < itemsInCharacter.size(); i++) {
+        Item* item = itemsInCharacter[i];
         if (item->getShortDescription() == itemName) {
+            itemsInCharacter.erase(itemsInCharacter.begin() + i);
             return item;
         }
     }
