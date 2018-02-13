@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     displayCurrentRoomInfo();
     updateInventoryLabel();
+
+    QIcon* icon = new QIcon(":/images/items/metal_sword.png");
+    ui->item0->setIcon(*icon);
+
 }
 
 MainWindow::~MainWindow() {
@@ -64,4 +68,7 @@ void MainWindow::on_putButton_clicked() {
 
 void MainWindow::on_inventoryButton_clicked() {
    updateInventoryLabel();
+}
+
+void MainWindow::on_item0_clicked() {
 }

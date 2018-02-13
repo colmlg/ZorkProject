@@ -31,6 +31,7 @@ public:
     void teleport();
     string go(string direction);
     string getCharacterInventory();
+    Inventory* getCurrentRoomInventory();
     void takeItem(string itemName);
     void placeItem(string itemName);
 };

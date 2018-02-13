@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/items/Berry_02.png</file>
+        <file>images/items/Berry_03.png</file>
+        <file>images/items/Book_00.png</file>
+        <file>images/items/Book_03.png</file>
+        <file>images/items/Cloak_02.png</file>
+        <file>images/items/Cloak_03.png</file>
+        <file>images/items/Coin_03.png</file>
+        <file>images/items/Crystal Ball_02.png</file>
+        <file>images/items/Crystal Ball_03.png</file>
+        <file>images/items/Essence_03.png</file>
+        <file>images/items/Flower Bunch_03.png</file>
+        <file>images/items/Gems_01.png</file>
+        <file>images/items/Gems_03.png</file>
+        <file>images/items/metal_sword.png</file>
+        <file>images/items/Metal Case_00.png</file>
+        <file>images/items/Metal Case_01.png</file>
+        <file>images/items/metal chest plate.png</file>
+        <file>images/items/Necklace_02.png</file>
+        <file>images/items/Necklace_03.png</file>
+        <file>images/items/Ornament_02.png</file>
+        <file>images/items/Ornament_03.png</file>
+        <file>images/items/Parchment_02.png</file>
+        <file>images/items/Ruin Stone_01.png</file>
+        <file>images/items/Ruin Stone_02.png</file>
+        <file>images/items/Shirt_00.png</file>
+        <file>images/items/Shirt_01.png</file>
+        <file>images/items/Small Potion_00.png</file>
+        <file>images/items/Small Potion_03.png</file>
+        <file>images/items/Wood_00.png</file>
+        <file>images/items/Wood_01.png</file>
+    </qresource>
+</RCC>

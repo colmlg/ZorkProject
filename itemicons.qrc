@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Character.cpp</file>
+        <file>Character.h</file>
+        <file>Command.cpp</file>
+        <file>Command.h</file>
+        <file>CommandWords.cpp</file>
+        <file>CommandWords.h</file>
+        <file>Inventory.cpp</file>
+        <file>Inventory.h</file>
+        <file>Item.cpp</file>
+        <file>Item.h</file>
+        <file>main.cpp</file>
+        <file>MainWindow.cpp</file>
+        <file>MainWindow.h</file>
+        <file>Parser.cpp</file>
+        <file>Parser.h</file>
+        <file>Room.cpp</file>
+        <file>Room.h</file>
+        <file>ZorkUL.cpp</file>
+        <file>ZorkUL.h</file>
+    </qresource>
+</RCC>

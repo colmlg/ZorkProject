@@ -96,6 +96,10 @@ string ZorkUL::getCharacterInventory() {
     return character->inventory->getItemNames();
 }
 
+Inventory* ZorkUL::getCurrentRoomInventory() {
+    return currentRoom->inventory;
+}
+
 void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory) {
     Item* item = fromInventory->takeItem(itemName);
     

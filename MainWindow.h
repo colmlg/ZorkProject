@@ -26,11 +26,14 @@ private slots:
     void on_putButton_clicked();
     void on_inventoryButton_clicked();
 
+    void on_item0_clicked();
+
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;
     void displayCurrentRoomInfo();
     void updateInventoryLabel();
+    void setRoomItems();
 };
 
 #endif // MAINWINDOW_H

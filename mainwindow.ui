@@ -177,21 +177,52 @@
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>130</y>
-      <width>80</width>
-      <height>78</height>
+      <width>551</width>
+      <height>80</height>
      </rect>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>80</width>
-      <height>80</height>
-     </size>
-    </property>
+    <layout class="QHBoxLayout" name="itemsInRoom">
+     <item>
+      <widget class="QPushButton" name="item0">
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -200,7 +231,7 @@
      <x>0</x>
      <y>0</y>
      <width>871</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
