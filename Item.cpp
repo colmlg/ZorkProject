@@ -3,14 +3,9 @@
 using std::string;
 using std::cout;
 
-Item::Item(string description, int inWeight, float inValue) {
+Item::Item(string description, string imagePath) {
     this->description = description;
-    setWeight(inWeight);
-    value = inValue;
-}
-
-Item::Item(string description) {
-    this->description = description;
+    icon = new QIcon(QString::fromStdString(imagePath));
 }
 
 void Item::setWeight(int weight) {

@@ -11,11 +11,11 @@ ZorkUL::ZorkUL() {
 void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
-    a->inventory->addItem(new Item("metal_sword"));
-    a->inventory->addItem(new Item("y", 2, 22));
+    a->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
+    a->inventory->addItem(new Item("y"));
     b = new Room("b");
-    b->inventory->addItem(new Item("xx", 3, 33));
-    b->inventory->addItem(new Item("yy", 4, 44));
+    b->inventory->addItem(new Item("xx"));
+    b->inventory->addItem(new Item("yy"));
     c = new Room("c");
     d = new Room("d");
     e = new Room("e");

@@ -8,9 +8,10 @@ MainWindow::MainWindow(QWidget *parent) :
     displayCurrentRoomInfo();
     updateInventoryLabel();
 
-    QIcon* icon = new QIcon(":/images/items/metal_sword.png");
-    ui->item0->setIcon(*icon);
-
+//    zork.getCurrentRoomInventory()->items[0]
+    for (const Item &item : zork.getCurrentRoomInventory()->items) {
+       ui->item0->setIcon(*item.icon);
+    }
 }
 
 MainWindow::~MainWindow() {
@@ -71,4 +72,5 @@ void MainWindow::on_inventoryButton_clicked() {
 }
 
 void MainWindow::on_item0_clicked() {
+    ui->item0->setStyleSheet("border: 2px solid blue; QPushButton::checked {};");
 }

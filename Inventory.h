@@ -6,8 +6,8 @@
 
 class Inventory {
 private:
-    std::vector <Item*> items;
 public:
+    std::vector <Item*> items;
     void addItem(Item* item);
     Item* takeItem(std::string itemName);
     std::string getItemNames();

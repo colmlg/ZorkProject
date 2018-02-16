@@ -1,6 +1,7 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 #include <string>
+#include <QIcon>
 
 class Item {
 private:
@@ -11,8 +12,8 @@ private:
     bool weaponCheck;
 
 public:
-    Item(std::string description, int inWeight, float inValue);
-    explicit Item(std::string description);
+    QIcon* icon;
+    Item(std::string description, std::string imagePath = "");
     std::string getShortDescription();
     int getWeight();
     void setWeight(int weight);
