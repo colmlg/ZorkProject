@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include "ZorkUL.h"
 #include <QMainWindow>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -26,14 +27,21 @@ private slots:
     void on_putButton_clicked();
     void on_inventoryButton_clicked();
 
-    void on_item0_clicked();
+    void on_roomItem0_clicked();
+    void on_roomItem1_clicked();
+    void on_roomItem2_clicked();
+    void on_roomItem3_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;
+    QPushButton* roomItemButtons[Room::itemSlots];
     void displayCurrentRoomInfo();
     void updateInventoryLabel();
     void setRoomItems();
+    void selectRoomItem(QPushButton* button);
 };
 
 #endif // MAINWINDOW_H

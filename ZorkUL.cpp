@@ -12,10 +12,12 @@ void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
     a->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
-    a->inventory->addItem(new Item("y"));
+    a->inventory->addItem(new Item("book", ":/images/items/Book_00.png"));
+    a->inventory->addItem(new Item("berry", ":/images/items/Berry_02.png"));
+
     b = new Room("b");
-    b->inventory->addItem(new Item("xx"));
-    b->inventory->addItem(new Item("yy"));
+    b->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
+    b->inventory->addItem(new Item("book", ":/images/items/Book_00.png"));
     c = new Room("c");
     d = new Room("d");
     e = new Room("e");

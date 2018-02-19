@@ -23,6 +23,8 @@ public:
     string longDescription();
     Room* nextRoom(string direction);
     Inventory* inventory = new Inventory();
+
+    static const int itemSlots = 4;
 };
 
 #endif

@@ -6,7 +6,7 @@ void Inventory::addItem(Item* item) {
 }
 
 Item* Inventory::takeItem(string itemName) {
-    for (int i = 0; i < items.size(); i++) {
+    for (unsigned int i = 0; i < items.size(); i++) {
         Item* item = items[i];
         if (item->getShortDescription() == itemName) {
             items.erase(items.begin() + i);
