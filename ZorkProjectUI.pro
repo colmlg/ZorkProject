@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,7 +34,8 @@ SOURCES += \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    MainWindowRoomInventory.cpp
 
 HEADERS += \
     Character.h \

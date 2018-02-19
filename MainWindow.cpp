@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     roomItemButtons[2] = ui->roomItem2;
     roomItemButtons[3] = ui->roomItem3;
 
+
     displayCurrentRoomInfo();
 }
 
@@ -42,24 +43,26 @@ void MainWindow::updateInventoryLabel() {
      ui->inventoryLabel->setText(inventory);
 }
 
-void MainWindow::on_northButton_clicked(){
-    zork.go("north");
+void MainWindow::goToRoom(string direction) {
+    zork.go(direction);
+    deselectItems();
     displayCurrentRoomInfo();
+}
+
+void MainWindow::on_northButton_clicked(){
+    goToRoom("north");
 }
 
 void MainWindow::on_southButton_clicked() {
-    zork.go("south");
-    displayCurrentRoomInfo();
+    goToRoom("south");
 }
 
 void MainWindow::on_eastButton_clicked() {
-    zork.go("east");
-    displayCurrentRoomInfo();
+    goToRoom("east");
 }
 
 void MainWindow::on_westButton_clicked() {
-    zork.go("west");
-    displayCurrentRoomInfo();
+    goToRoom("west");
 }
 
 void MainWindow::on_teleportButton_clicked() {
@@ -68,7 +71,12 @@ void MainWindow::on_teleportButton_clicked() {
 }
 
 void MainWindow::on_takeButton_clicked() {
-    zork.takeItem("x");
+    for (Item *item : zork.getCurrentRoomInventory()->items) {
+        //Todo: put room inventory into a local var
+        if (item->isSelected) {
+            zork.takeItem(item->getShortDescription());
+        }
+    }
     displayCurrentRoomInfo();
 }
 
@@ -80,28 +88,3 @@ void MainWindow::on_putButton_clicked() {
 void MainWindow::on_inventoryButton_clicked() {
    updateInventoryLabel();
 }
-
-void MainWindow::on_roomItem0_clicked() {
-    selectRoomItem(ui->roomItem0);
-}
-
-void MainWindow::on_roomItem1_clicked() {
-    selectRoomItem(ui->roomItem1);
-}
-
-void MainWindow::on_roomItem2_clicked() {
-    selectRoomItem(ui->roomItem2);
-}
-
-void MainWindow::on_roomItem3_clicked() {
-    selectRoomItem(ui->roomItem2);
-}
-
-
-void MainWindow::selectRoomItem(QPushButton* button) {
-    for (int i = 0; i < Room::itemSlots; i++) {
-        roomItemButtons[i]->setStyleSheet("");
-    }
-    button->setStyleSheet("border: 2px solid blue; QPushButton::checked {};");
-}
-

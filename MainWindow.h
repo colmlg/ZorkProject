@@ -42,6 +42,8 @@ private:
     void updateInventoryLabel();
     void setRoomItems();
     void selectRoomItem(QPushButton* button);
+    void goToRoom(std::string direction);
+    void deselectItems();
 };
 
 #endif // MAINWINDOW_H
