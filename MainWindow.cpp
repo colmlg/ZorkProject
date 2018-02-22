@@ -11,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
     roomItemButtons[2] = ui->roomItem2;
     roomItemButtons[3] = ui->roomItem3;
 
+    inventoryItemButtons[0] = ui->inventoryItem0;
+    inventoryItemButtons[1] = ui->inventoryItem1;
+    inventoryItemButtons[2] = ui->inventoryItem2;
+    inventoryItemButtons[3] = ui->inventoryItem3;
 
     displayCurrentRoomInfo();
 }
@@ -26,6 +30,17 @@ void MainWindow::setRoomItems() {
     }
 }
 
+void MainWindow::setInventoryItems() {
+    vector<Item*> items = zork.getCharacterInventory()->items;
+    for (unsigned int i = 0; i < Room::itemSlots; i++) {
+        bool itemExists = i < items.size();
+        QIcon icon = itemExists ? *items[i]->icon : QIcon();
+
+        inventoryItemButtons[i]->setEnabled(itemExists);
+        inventoryItemButtons[i]->setIcon(icon);
+    }
+}
+
 MainWindow::~MainWindow() {
     delete ui;
 }
@@ -34,18 +49,14 @@ void MainWindow::displayCurrentRoomInfo() {
     QString roomInfo = QString::fromStdString(zork.getCurrentRoomInfo());
     ui->mainDisplayLabel->setText(roomInfo);
 
-    updateInventoryLabel();
     setRoomItems();
-}
-
-void MainWindow::updateInventoryLabel() {
-     QString inventory = QString::fromStdString(zork.getCharacterInventory());
-     ui->inventoryLabel->setText(inventory);
+    setInventoryItems();
 }
 
 void MainWindow::goToRoom(string direction) {
+    zork.getCurrentRoomInventory()->deselectItems();
+    removeItemSelectionFrame();
     zork.go(direction);
-    deselectItems();
     displayCurrentRoomInfo();
 }
 
@@ -77,6 +88,7 @@ void MainWindow::on_takeButton_clicked() {
             zork.takeItem(item->getShortDescription());
         }
     }
+    removeItemSelectionFrame();
     displayCurrentRoomInfo();
 }
 
@@ -86,5 +98,5 @@ void MainWindow::on_putButton_clicked() {
 }
 
 void MainWindow::on_inventoryButton_clicked() {
-   updateInventoryLabel();
+//   updateInventoryLabel();
 }

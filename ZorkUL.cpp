@@ -53,49 +53,8 @@ void ZorkUL::createRooms() {
     rooms[9] = j;
 }
 
-void ZorkUL::play() {
-//    printWelcome();
-    bool finished = false;
-    
-    while (!finished) {
-        Command* command = parser.getCommand();
-        finished = processCommand(*command);
-        delete command;
-    }
-    cout << "end" << endl;
-}
-
-bool ZorkUL::processCommand(Command command) {
-    if (command.isUnknown()) {
-        cout << "invalid input" << endl;
-        return false;
-    }
-
-    string commandWord = command.getCommandWord();
-    if (commandWord == "info") {
-//        printHelp();
-    } else if (commandWord == "map") {
-//        printMap();
-    } else if (commandWord == "teleport") {
-        teleport();
-    } else if (commandWord == "inventory") {
-//        printInventory();
-    } else if (commandWord == "quit") {
-        return true; /**signal to quit*/
-    } else if (!command.hasSecondWord()) { //MARK: Two word commands
-        cout << "incomplete input" << endl;
-    } else if (commandWord == "take") {
-        moveItem(command.getSecondWord(), currentRoom->inventory, character->inventory);
-    } else if (commandWord == "put") {
-        moveItem(command.getSecondWord(), character->inventory, currentRoom->inventory);
-    } else if (commandWord == "go") {
-//        goRoom(command);
-    }
-    return false;
-}
-
-string ZorkUL::getCharacterInventory() {
-    return character->inventory->getItemNames();
+Inventory* ZorkUL::getCharacterInventory() {
+    return character->inventory;
 }
 
 Inventory* ZorkUL::getCurrentRoomInventory() {
@@ -108,7 +67,7 @@ void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toIn
     if (item == NULL) {
         return;
     }
-    
+    item->isSelected = false;
     toInventory->addItem(item);
 }
 

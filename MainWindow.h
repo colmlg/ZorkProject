@@ -38,12 +38,14 @@ private:
     Ui::MainWindow *ui;
     ZorkUL zork;
     QPushButton* roomItemButtons[Room::itemSlots];
+    QPushButton* inventoryItemButtons[Room::itemSlots];
     void displayCurrentRoomInfo();
     void updateInventoryLabel();
     void setRoomItems();
+    void setInventoryItems();
     void selectRoomItem(QPushButton* button);
     void goToRoom(std::string direction);
-    void deselectItems();
+    void removeItemSelectionFrame();
 };
 
 #endif // MAINWINDOW_H

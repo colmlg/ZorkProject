@@ -29,3 +29,14 @@ string Inventory::getItemNames() {
     }
     return listOfItems;
 }
+
+void Inventory::selectItem(int index) {
+    deselectItems();
+    items[index]->isSelected = true;
+}
+
+void Inventory::deselectItems() {
+    for (Item* item : items) {
+        item->isSelected = false;
+    }
+}

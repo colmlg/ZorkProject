@@ -11,5 +11,7 @@ public:
     void addItem(Item* item);
     Item* takeItem(std::string itemName);
     std::string getItemNames();
+    void selectItem(int index);
+    void deselectItems();
 };
 #endif /* INVENTORY_H */

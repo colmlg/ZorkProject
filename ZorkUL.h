@@ -30,7 +30,7 @@ public:
     //MARK: Game commands
     void teleport();
     string go(string direction);
-    string getCharacterInventory();
+    Inventory* getCharacterInventory();
     Inventory* getCurrentRoomInventory();
     void takeItem(string itemName);
     void placeItem(string itemName);
