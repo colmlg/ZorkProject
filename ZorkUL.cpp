@@ -12,7 +12,12 @@ void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
     a = new Room("a");
     a->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
-    a->inventory->addItem(new Item("book", ":/images/items/Book_00.png"));
+    a->inventory->addItem(new Item("book",
+                                   ":/images/items/Book_00.png",
+                                   true, [this]{
+                                       teleport();
+                                     },
+                                    "You place your palm on the cover of the book, and close your eyes. When you open them a new room appears before you."));
     a->inventory->addItem(new Item("berry", ":/images/items/Berry_02.png"));
 
     b = new Room("b");

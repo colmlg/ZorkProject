@@ -33,12 +33,12 @@ void MainWindow::setRoomItems() {
 
 void MainWindow::setInventoryItems() {
     vector<Item*> items = zork.getCharacterInventory()->getItems();
-    for (unsigned int i = 0; i < Room::itemSlots; i++) {
+	for (unsigned int i = 0; i < Room::itemSlots; i++) {
         bool itemExists = i < items.size();
         QIcon icon = itemExists ? *items[i]->icon : QIcon(":/images/emptyItemSlot.png");
 
         inventoryItemButtons[i]->setEnabled(itemExists);
-        inventoryItemButtons[i]->setIcon(icon);
+		inventoryItemButtons[i]->setIcon(icon);
     }
 }
 
@@ -117,7 +117,54 @@ void MainWindow::on_putButton_clicked() {
     }
     removeInventoryItemSelectionFrame();
     ui->putButton->setEnabled(false);
+	ui->useButton->setEnabled(false);
+
     displayCurrentRoomInfo();
+}
+
+void MainWindow::on_roomItem0_clicked() {
+	selectRoomItem(0);
+}
+
+void MainWindow::on_roomItem1_clicked() {
+	selectRoomItem(1);
+}
+
+void MainWindow::on_roomItem2_clicked() {
+	selectRoomItem(2);
+}
+
+void MainWindow::on_roomItem3_clicked() {
+	selectRoomItem(3);
+}
+
+void MainWindow::selectRoomItem(int itemIndex) {
+	ui->takeButton->setEnabled(true);
+	zork.getCurrentRoomInventory()->selectItem(itemIndex);
+	removeRoomItemSelectionFrame();
+	roomItemButtons[itemIndex]->setStyleSheet("border: 2px solid blue; outline: none;");
+}
+
+void MainWindow::selectInventoryItem(int itemIndex) {
+	Inventory* inventory = zork.getCharacterInventory();
+	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
+	ui->putButton->setEnabled(true);
+
+	inventory->selectItem(itemIndex);
+	removeInventoryItemSelectionFrame();
+	inventoryItemButtons[itemIndex]->setStyleSheet("border: 2px solid red; outline: none;");
+}
+
+void MainWindow::removeRoomItemSelectionFrame() {
+	for (QPushButton* button : roomItemButtons) {
+		button->setStyleSheet("");
+	}
+}
+
+void MainWindow::removeInventoryItemSelectionFrame() {
+	for (QPushButton* button : inventoryItemButtons) {
+		button->setStyleSheet("");
+	}
 }
 
 void MainWindow::on_inventoryItem0_clicked() {
@@ -145,4 +192,25 @@ void MainWindow::displayAlert(string message) {
     messageBox.setIcon(QMessageBox::Warning);
     messageBox.setText(QString::fromStdString(message));
     messageBox.exec();
+}
+
+void MainWindow::on_useButton_clicked() {
+	vector<Item*> items = zork.getCharacterInventory()->getItems();
+	for (int i = 0 ; i < items.size(); i++) {
+		if (items[i]->isSelected && items[i]->action != NULL) {
+			items[i]->action();
+			log(items[i]->getActionDescription());
+
+			if(items[i]->isConsumable()) {
+				log("The " + items[i]->getShortDescription() + " is nowhere to be found...");
+				zork.getCharacterInventory()->removeItem(i);
+				removeInventoryItemSelectionFrame();
+				ui->putButton->setEnabled(false);
+				ui->useButton->setEnabled(false);
+			}
+
+			displayCurrentRoomInfo();
+			return;
+		}
+	}
 }

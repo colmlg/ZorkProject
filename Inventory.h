@@ -15,6 +15,7 @@ public:
     void selectItem(int index);
     void deselectItems();
     int getNumberOfItems();
+    void removeItem(int index);
 
 };
 #endif /* INVENTORY_H */

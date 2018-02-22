@@ -26,20 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Character.cpp \
-    Command.cpp \
-    CommandWords.cpp \
     Inventory.cpp \
     Item.cpp \
     main.cpp \
     Room.cpp \
     ZorkUL.cpp \
-    MainWindow.cpp \
-    MainWindowRoomInventory.cpp
+    MainWindow.cpp
 
 HEADERS += \
     Character.h \
-    Command.h \
-    CommandWords.h \
     Inventory.h \
     Item.h \
     Room.h \

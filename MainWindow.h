@@ -36,6 +36,8 @@ private slots:
     void on_inventoryItem3_clicked();
 
 
+    void on_useButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;
