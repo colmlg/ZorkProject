@@ -21,17 +21,19 @@ private slots:
     void on_eastButton_clicked();
     void on_westButton_clicked();
 
-
     void on_teleportButton_clicked();
     void on_takeButton_clicked();
     void on_putButton_clicked();
-    void on_inventoryButton_clicked();
 
     void on_roomItem0_clicked();
     void on_roomItem1_clicked();
     void on_roomItem2_clicked();
     void on_roomItem3_clicked();
 
+    void on_inventoryItem0_clicked();
+    void on_inventoryItem1_clicked();
+    void on_inventoryItem2_clicked();
+    void on_inventoryItem3_clicked();
 
 
 private:
@@ -43,9 +45,13 @@ private:
     void updateInventoryLabel();
     void setRoomItems();
     void setInventoryItems();
-    void selectRoomItem(QPushButton* button);
+    void selectRoomItem(int itemIndex);
+    void selectInventoryItem(int itemIndex);
     void goToRoom(std::string direction);
-    void removeItemSelectionFrame();
+    void removeRoomItemSelectionFrame();
+    void removeInventoryItemSelectionFrame();
+    void log(string input);
+    void displayAlert(string message);
 };
 
 #endif // MAINWINDOW_H

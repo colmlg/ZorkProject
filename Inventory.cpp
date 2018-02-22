@@ -40,3 +40,12 @@ void Inventory::deselectItems() {
         item->isSelected = false;
     }
 }
+
+int Inventory::getNumberOfItems() {
+    return items.size();
+}
+
+std::vector<Item*> Inventory::getItems() {
+    return items;
+}
+

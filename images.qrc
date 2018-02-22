@@ -30,5 +30,6 @@
         <file>images/items/Small Potion_03.png</file>
         <file>images/items/Wood_00.png</file>
         <file>images/items/Wood_01.png</file>
+        <file>images/emptyItemSlot.png</file>
     </qresource>
 </RCC>

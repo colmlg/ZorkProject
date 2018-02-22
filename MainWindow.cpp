@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,10 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::setRoomItems() {
-    vector<Item*> items = zork.getCurrentRoomInventory()->items;
+    vector<Item*> items = zork.getCurrentRoomInventory()->getItems();
     for (unsigned int i = 0; i < Room::itemSlots; i++) {
         bool itemExists = i < items.size();
-        QIcon icon = itemExists ? *items[i]->icon : QIcon();
+        QIcon icon = itemExists ? *items[i]->icon : QIcon(":/images/emptyItemSlot.png");
 
         roomItemButtons[i]->setEnabled(itemExists);
         roomItemButtons[i]->setIcon(icon);
@@ -31,10 +32,10 @@ void MainWindow::setRoomItems() {
 }
 
 void MainWindow::setInventoryItems() {
-    vector<Item*> items = zork.getCharacterInventory()->items;
+    vector<Item*> items = zork.getCharacterInventory()->getItems();
     for (unsigned int i = 0; i < Room::itemSlots; i++) {
         bool itemExists = i < items.size();
-        QIcon icon = itemExists ? *items[i]->icon : QIcon();
+        QIcon icon = itemExists ? *items[i]->icon : QIcon(":/images/emptyItemSlot.png");
 
         inventoryItemButtons[i]->setEnabled(itemExists);
         inventoryItemButtons[i]->setIcon(icon);
@@ -55,7 +56,8 @@ void MainWindow::displayCurrentRoomInfo() {
 
 void MainWindow::goToRoom(string direction) {
     zork.getCurrentRoomInventory()->deselectItems();
-    removeItemSelectionFrame();
+    removeRoomItemSelectionFrame();
+    ui->takeButton->setEnabled(false);
     zork.go(direction);
     displayCurrentRoomInfo();
 }
@@ -82,21 +84,65 @@ void MainWindow::on_teleportButton_clicked() {
 }
 
 void MainWindow::on_takeButton_clicked() {
-    for (Item *item : zork.getCurrentRoomInventory()->items) {
+    if (zork.getCharacterInventory()->getNumberOfItems() >= Room::itemSlots) {
+        displayAlert("Your inventory is full!\nTry placing an item in the room before taking another one.");
+        return;
+    }
+
+    for (Item *item : zork.getCurrentRoomInventory()->getItems()) {
         //Todo: put room inventory into a local var
         if (item->isSelected) {
             zork.takeItem(item->getShortDescription());
+            log("You took a " + item->getShortDescription() + " from the room.");
+            break;
         }
     }
-    removeItemSelectionFrame();
+    removeRoomItemSelectionFrame();
+    ui->takeButton->setEnabled(false);
     displayCurrentRoomInfo();
 }
 
 void MainWindow::on_putButton_clicked() {
-    zork.placeItem("x");
+    if (zork.getCurrentRoomInventory()->getNumberOfItems() >= Room::itemSlots) {
+        displayAlert("The room is full of items!\nTry taking an item from the room before placing another one.");
+        return;
+    }
+
+    for(Item* item : zork.getCharacterInventory()->getItems()) {
+        if (item->isSelected) {
+            zork.placeItem(item->getShortDescription());
+            log("You placed a " + item->getShortDescription() + " in the room.");
+            break;
+        }
+    }
+    removeInventoryItemSelectionFrame();
+    ui->putButton->setEnabled(false);
     displayCurrentRoomInfo();
 }
 
-void MainWindow::on_inventoryButton_clicked() {
-//   updateInventoryLabel();
+void MainWindow::on_inventoryItem0_clicked() {
+    selectInventoryItem(0);
+}
+
+void MainWindow::on_inventoryItem1_clicked() {
+    selectInventoryItem(1);
+}
+
+void MainWindow::on_inventoryItem2_clicked() {
+    selectInventoryItem(2);
+}
+
+void MainWindow::on_inventoryItem3_clicked() {
+    selectInventoryItem(3);
+}
+
+void MainWindow::log(string input) {
+    ui->gameLog->append(QString::fromStdString(input));
+}
+
+void MainWindow::displayAlert(string message) {
+    QMessageBox messageBox;
+    messageBox.setIcon(QMessageBox::Warning);
+    messageBox.setText(QString::fromStdString(message));
+    messageBox.exec();
 }
