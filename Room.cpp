@@ -21,7 +21,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return "room = " + description + ".\n" + "Items =\t" + inventory->getItemNames() + exitString();
+	return "room = " + description + ".\n" + exitString();
 }
 
 string Room::exitString() {

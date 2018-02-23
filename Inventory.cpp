@@ -17,19 +17,6 @@ Item* Inventory::takeItem(string itemName) {
     return NULL;
 }
 
-string Inventory::getItemNames() {
-    int numberOfItems = items.size();
-    if (numberOfItems == 0) {
-        return "No items.";
-    }
-    
-    string listOfItems;
-    for (int i = 0; i < numberOfItems; i++) {
-        listOfItems += items[i]->getShortDescription() + " ";
-    }
-    return listOfItems;
-}
-
 void Inventory::selectItem(int index) {
     deselectItems();
     items[index]->isSelected = true;
@@ -50,7 +37,6 @@ std::vector<Item*> Inventory::getItems() {
 }
 
 void Inventory::removeItem(int index) {
-    delete items[index];
     items.erase(items.begin() + index);
 }
 

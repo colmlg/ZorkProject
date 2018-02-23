@@ -50,6 +50,8 @@ void MainWindow::displayCurrentRoomInfo() {
     QString roomInfo = QString::fromStdString(zork.getCurrentRoomInfo());
     ui->mainDisplayLabel->setText(roomInfo);
 
+	QString health = QString::fromStdString("Health: " + std::to_string(zork.getCharacter()->getHealth()));
+	ui->healthLabel->setText(health);
     setRoomItems();
     setInventoryItems();
 }
@@ -138,50 +140,45 @@ void MainWindow::on_roomItem3_clicked() {
 	selectRoomItem(3);
 }
 
-void MainWindow::selectRoomItem(int itemIndex) {
-	ui->takeButton->setEnabled(true);
-	zork.getCurrentRoomInventory()->selectItem(itemIndex);
+void MainWindow::selectRoomItem(const int itemIndex) {
 	removeRoomItemSelectionFrame();
+	ui->takeButton->setEnabled(true);
+	QString itemInfoString = QString::fromStdString(zork.getCurrentRoomInventory()->getItems()[itemIndex]->getLongDescription());
+	ui->roomItemInfoLabel->setText(itemInfoString);
+	zork.getCurrentRoomInventory()->selectItem(itemIndex);
 	roomItemButtons[itemIndex]->setStyleSheet("border: 2px solid blue; outline: none;");
 }
 
-void MainWindow::selectInventoryItem(int itemIndex) {
+void MainWindow::selectInventoryItem(const int itemIndex) {
+	removeInventoryItemSelectionFrame();
 	Inventory* inventory = zork.getCharacterInventory();
 	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
 	ui->putButton->setEnabled(true);
 
+	QString itemInfoString = QString::fromStdString(inventory->getItems()[itemIndex]->getLongDescription());
+	ui->inventoryItemInfoLabel->setText(itemInfoString);
 	inventory->selectItem(itemIndex);
-	removeInventoryItemSelectionFrame();
 	inventoryItemButtons[itemIndex]->setStyleSheet("border: 2px solid red; outline: none;");
 }
 
 void MainWindow::removeRoomItemSelectionFrame() {
+	ui->roomItemInfoLabel->setText("");
 	for (QPushButton* button : roomItemButtons) {
 		button->setStyleSheet("");
 	}
 }
 
 void MainWindow::removeInventoryItemSelectionFrame() {
+	ui->inventoryItemInfoLabel->setText("");
 	for (QPushButton* button : inventoryItemButtons) {
 		button->setStyleSheet("");
 	}
 }
 
-void MainWindow::on_inventoryItem0_clicked() {
-    selectInventoryItem(0);
-}
-
-void MainWindow::on_inventoryItem1_clicked() {
-    selectInventoryItem(1);
-}
-
-void MainWindow::on_inventoryItem2_clicked() {
-    selectInventoryItem(2);
-}
-
-void MainWindow::on_inventoryItem3_clicked() {
-    selectInventoryItem(3);
-}
+void MainWindow::on_inventoryItem0_clicked() { selectInventoryItem(0); }
+void MainWindow::on_inventoryItem1_clicked() { selectInventoryItem(1); }
+void MainWindow::on_inventoryItem2_clicked() { selectInventoryItem(2); }
+void MainWindow::on_inventoryItem3_clicked() { selectInventoryItem(3); }
 
 void MainWindow::log(string input) {
     ui->gameLog->append(QString::fromStdString(input));
@@ -196,7 +193,7 @@ void MainWindow::displayAlert(string message) {
 
 void MainWindow::on_useButton_clicked() {
 	vector<Item*> items = zork.getCharacterInventory()->getItems();
-	for (int i = 0 ; i < items.size(); i++) {
+	for (unsigned int i = 0 ; i < items.size(); i++) {
 		if (items[i]->isSelected && items[i]->action != NULL) {
 			items[i]->action();
 			log(items[i]->getActionDescription());

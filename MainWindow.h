@@ -30,7 +30,7 @@ private slots:
     void on_roomItem2_clicked();
     void on_roomItem3_clicked();
 
-    void on_inventoryItem0_clicked();
+	void on_inventoryItem0_clicked();
     void on_inventoryItem1_clicked();
     void on_inventoryItem2_clicked();
     void on_inventoryItem3_clicked();

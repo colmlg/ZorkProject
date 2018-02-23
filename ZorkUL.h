@@ -27,6 +27,7 @@ public:
     Room* getCurrentRoom();
     void takeItem(string itemName);
     void placeItem(string itemName);
+	Character* getCharacter();
 };
 
 #endif /*ZORKUL_H_*/

@@ -31,7 +31,8 @@ SOURCES += \
     main.cpp \
     Room.cpp \
     ZorkUL.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    Book.cpp
 
 HEADERS += \
     Character.h \
@@ -40,7 +41,8 @@ HEADERS += \
     Room.h \
     ZorkUL.h \
     MainWindow.h \
-    Direction.h
+    Direction.h \
+    Book.h
 
 FORMS += \
         mainwindow.ui

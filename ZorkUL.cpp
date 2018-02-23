@@ -10,19 +10,28 @@ ZorkUL::ZorkUL() {
 
 void ZorkUL::createRooms() {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-    a = new Room("a");
-    a->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
-    a->inventory->addItem(new Item("book",
-                                   ":/images/items/Book_00.png",
-                                   true, [this]{
-                                       teleport();
-                                     },
-                                    "You place your palm on the cover of the book, and close your eyes. When you open them a new room appears before you."));
-    a->inventory->addItem(new Item("berry", ":/images/items/Berry_02.png"));
+	Item* bookItem = new Item(book);
+	bookItem->action = [this]{ teleport(); };
+
+	Item* berryItem = new Item(berry);
+	berryItem->action = [this]{ character->heal(10); };
+
+	Item* poisonBerry = new Item(berry);
+	poisonBerry->actionDescription = "Ouch! The delicious looking berry turned out to be poisonous! You have been dealt 50 damage.";
+	poisonBerry->action = [this]{ character->dealDamage(50); };
+
+	Item* swordItem = new Item(sword);
+
+	a = new Room("a");
+	a->inventory->addItem(bookItem);
+	a->inventory->addItem(berryItem);
+	a->inventory->addItem(swordItem);
+	a->inventory->addItem(poisonBerry);
 
     b = new Room("b");
-    b->inventory->addItem(new Item("sword", ":/images/items/metal_sword.png"));
-    b->inventory->addItem(new Item("book", ":/images/items/Book_00.png"));
+	b->inventory->addItem(swordItem);
+	b->inventory->addItem(bookItem);
+
     c = new Room("c");
     d = new Room("d");
     e = new Room("e");
@@ -101,4 +110,8 @@ string ZorkUL::go(string direction) {
         currentRoom = nextRoom;
         return currentRoom->longDescription();
     }
+}
+
+Character* ZorkUL::getCharacter() {
+	return character;
 }
