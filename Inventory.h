@@ -9,7 +9,7 @@ private:
     std::vector <Item*> items;
 public:
     void addItem(Item* item);
-    Item* takeItem(std::string itemName);
+	Item* takeSelectedItem();
     std::vector <Item*> getItems();
     void selectItem(int index);
     void deselectItems();

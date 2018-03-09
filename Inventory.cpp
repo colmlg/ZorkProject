@@ -5,10 +5,10 @@ void Inventory::addItem(Item* item) {
     items.push_back(item);
 }
 
-Item* Inventory::takeItem(string itemName) {
+Item* Inventory::takeSelectedItem() {
     for (unsigned int i = 0; i < items.size(); i++) {
         Item* item = items[i];
-        if (item->getShortDescription() == itemName) {
+		if (item->isSelected) {
             items.erase(items.begin() + i);
             return item;
         }

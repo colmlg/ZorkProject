@@ -1,5 +1,8 @@
 #include "Item.h"
+#include "Constants.h"
 #include <iostream>
+#include <sstream>
+
 using std::string;
 using std::cout;
 
@@ -43,7 +46,7 @@ Item::Item(ItemType type) {
 		description = "sword";
 		longDescription = "A shiny metal sword.";
 		consumable = false;
-//		actionDescription = "You are teleported to a new room.";
+		actionDescription = "You are teleported to a new room.";
 		icon = new QIcon(QString::fromStdString(":/images/items/metal_sword.png"));
 		break;
 
@@ -51,8 +54,22 @@ Item::Item(ItemType type) {
 		description = "berry";
 		longDescription = "A delicious looking berry.";
 		consumable = true;
-		actionDescription = "You eat the berry and feel a bit better. You have been healed for 10 points of health.";
+		actionDescription = "You eat the berry and feel a bit better. You have been healed for 20 points of health.";
 		icon = new QIcon(QString::fromStdString(":/images/items/Berry_03.png"));
 		break;
+
+	case poisonBerry:
+		description = "poison berry";
+		longDescription = "A delicious looking berry.";
+		consumable = true;
+		actionDescription = "Ouch, the berry turned out to be poisonous! You have been dealt " + 50 ;//+ " damage.";
+		icon = new QIcon(QString::fromStdString(":/images/items/Berry_02.png"));
+		break;
 	}
+}
+
+char* operator+(int lhs, char* rhs) {
+	std::ostringstream output;
+	output << lhs << rhs;
+	return output.str();
 }

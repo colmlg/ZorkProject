@@ -25,24 +25,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-    Character.cpp \
     Inventory.cpp \
     Item.cpp \
     main.cpp \
     Room.cpp \
     ZorkUL.cpp \
     MainWindow.cpp \
-    Book.cpp
+    Book.cpp \
+    Enemy.cpp \
+    Entity.cpp \
+    Player.cpp \
+    Weapon.cpp
 
 HEADERS += \
-    Character.h \
     Inventory.h \
     Item.h \
     Room.h \
     ZorkUL.h \
     MainWindow.h \
     Direction.h \
-    Book.h
+    Book.h \
+    Enemy.h \
+    Entity.h \
+    Player.h \
+    Weapon.h \
+    Constants.h
 
 FORMS += \
         mainwindow.ui

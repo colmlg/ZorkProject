@@ -1,11 +1,12 @@
 #include <iostream>
 #include "ZorkUL.h"
+#include "Constants.h"
 #include <cstdlib>
 using namespace std;
 
 ZorkUL::ZorkUL() {
     createRooms();
-    character = new Character();
+	player = new Player();
 }
 
 void ZorkUL::createRooms() {
@@ -14,11 +15,10 @@ void ZorkUL::createRooms() {
 	bookItem->action = [this]{ teleport(); };
 
 	Item* berryItem = new Item(berry);
-	berryItem->action = [this]{ character->heal(10); };
+	berryItem->action = [this]{ player->heal(Constants.berryHealAmount); };
 
-	Item* poisonBerry = new Item(berry);
-	poisonBerry->actionDescription = "Ouch! The delicious looking berry turned out to be poisonous! You have been dealt 50 damage.";
-	poisonBerry->action = [this]{ character->dealDamage(50); };
+	Item* poisonBerryItem = new Item(poisonBerry);
+	poisonBerryItem->action = [this]{ player->takeDamage(Constants.poisonBerryDamage); };
 
 	Item* swordItem = new Item(sword);
 
@@ -26,7 +26,7 @@ void ZorkUL::createRooms() {
 	a->inventory->addItem(bookItem);
 	a->inventory->addItem(berryItem);
 	a->inventory->addItem(swordItem);
-	a->inventory->addItem(poisonBerry);
+	a->inventory->addItem(poisonBerryItem);
 
     b = new Room("b");
 	b->inventory->addItem(swordItem);
@@ -68,15 +68,15 @@ void ZorkUL::createRooms() {
 }
 
 Inventory* ZorkUL::getCharacterInventory() {
-    return character->inventory;
+	return player->inventory;
 }
 
 Inventory* ZorkUL::getCurrentRoomInventory() {
     return currentRoom->inventory;
 }
 
-void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory) {
-    Item* item = fromInventory->takeItem(itemName);
+void ZorkUL::moveSelectedItem(Inventory* fromInventory, Inventory* toInventory) {
+	Item* item = fromInventory->takeSelectedItem();
     
     if (item == NULL) {
         return;
@@ -85,12 +85,12 @@ void ZorkUL::moveItem(string itemName, Inventory* fromInventory, Inventory* toIn
     toInventory->addItem(item);
 }
 
-void ZorkUL::takeItem(string itemName) {
-    moveItem(itemName, currentRoom->inventory, character->inventory);
+void ZorkUL::takeSelectedItem() {
+	moveSelectedItem(currentRoom->inventory, player->inventory);
 }
 
-void ZorkUL::placeItem(string itemName) {
-    moveItem(itemName, character->inventory, currentRoom->inventory);
+void ZorkUL::placeSelectedItem() {
+	moveSelectedItem(player->inventory, currentRoom->inventory);
 }
 
 void ZorkUL::teleport() {
@@ -112,6 +112,6 @@ string ZorkUL::go(string direction) {
     }
 }
 
-Character* ZorkUL::getCharacter() {
-	return character;
+Player* ZorkUL::getCharacter() {
+	return player;
 }

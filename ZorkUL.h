@@ -3,19 +3,19 @@
 
 #include "Room.h"
 #include "Inventory.h"
-#include "Character.h"
+#include "Player.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
 class ZorkUL {
 private:
-    Character *character;
+    Player *player;
     Room *currentRoom;
     Room *rooms[10];
     void createRooms();
     void createItems();
-    void moveItem(string itemName, Inventory* fromInventory, Inventory* toInventory);
+	void moveSelectedItem(Inventory* fromInventory, Inventory* toInventory);
 public:
     ZorkUL();
     string getCurrentRoomInfo();
@@ -25,9 +25,9 @@ public:
     Inventory* getCharacterInventory();
     Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();
-    void takeItem(string itemName);
-    void placeItem(string itemName);
-	Character* getCharacter();
+	void takeSelectedItem();
+	void placeSelectedItem();
+	Player* getCharacter();
 };
 
 #endif /*ZORKUL_H_*/
