@@ -8,7 +8,7 @@ void Inventory::addItem(Item* item) {
 Item* Inventory::takeSelectedItem() {
     for (unsigned int i = 0; i < items.size(); i++) {
         Item* item = items[i];
-		if (item->isSelected) {
+		if (item->isSelected()) {
             items.erase(items.begin() + i);
             return item;
         }
@@ -19,12 +19,12 @@ Item* Inventory::takeSelectedItem() {
 
 void Inventory::selectItem(int index) {
     deselectItems();
-    items[index]->isSelected = true;
+	items[index]->setSelected(true);
 }
 
 void Inventory::deselectItems() {
     for (Item* item : items) {
-        item->isSelected = false;
+		item->setSelected(false);
     }
 }
 

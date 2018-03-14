@@ -11,7 +11,7 @@ public:
 	int getHealth();
 	void takeDamage(int amount);
 	void heal(int amount);
-//	virtual int dealDamage();
+	virtual int dealDamage() = 0;
 };
 
 #endif // ENTITY_H

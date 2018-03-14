@@ -10,22 +10,22 @@ enum ItemType {
 
 class Item {
 protected:
-    std::string description;
-    std::string longDescription;
-    bool consumable;
+	std::string longDescription;
+	std::string actionDescription;
+	bool consumable;
+	bool selected = false;
 
 public:
-    QIcon* icon;
-    bool isSelected = false;
 	Item();
 	Item(ItemType);
-    Item(std::string description, std::string imagePath, bool consumable = false, std::function<void()> action = NULL, std::string actionDescription = "");
+    QIcon* icon;
+	std::function<void()> action;
     std::string getShortDescription();
     std::string getLongDescription();
-    std::function<void()> action;
+	std::string getActionDescription();
     bool isConsumable();
-    std::string getActionDescription();
-	std::string actionDescription;
+	bool isSelected();
+	void setSelected(bool selected);
 };
 
 #endif /*ITEM_H_*/

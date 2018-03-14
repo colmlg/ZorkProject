@@ -15,10 +15,10 @@ void ZorkUL::createRooms() {
 	bookItem->action = [this]{ teleport(); };
 
 	Item* berryItem = new Item(berry);
-	berryItem->action = [this]{ player->heal(Constants.berryHealAmount); };
+	berryItem->action = [this]{ player->heal(Constants::berryHealAmount); };
 
 	Item* poisonBerryItem = new Item(poisonBerry);
-	poisonBerryItem->action = [this]{ player->takeDamage(Constants.poisonBerryDamage); };
+	poisonBerryItem->action = [this]{ player->takeDamage(Constants::poisonBerryDamage); };
 
 	Item* swordItem = new Item(sword);
 
@@ -67,7 +67,7 @@ void ZorkUL::createRooms() {
     rooms[9] = j;
 }
 
-Inventory* ZorkUL::getCharacterInventory() {
+Inventory* ZorkUL::getPlayerInventory() {
 	return player->inventory;
 }
 
@@ -81,7 +81,7 @@ void ZorkUL::moveSelectedItem(Inventory* fromInventory, Inventory* toInventory) 
     if (item == NULL) {
         return;
     }
-    item->isSelected = false;
+	item->setSelected(false);
     toInventory->addItem(item);
 }
 
@@ -112,6 +112,6 @@ string ZorkUL::go(string direction) {
     }
 }
 
-Player* ZorkUL::getCharacter() {
+Player* ZorkUL::getPlayer() {
 	return player;
 }

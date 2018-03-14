@@ -34,7 +34,7 @@ void MainWindow::setRoomItems() {
 }
 
 void MainWindow::setInventoryItems() {
-    vector<Item*> items = zork.getCharacterInventory()->getItems();
+	vector<Item*> items = zork.getPlayerInventory()->getItems();
 	for (unsigned int i = 0; i < Room::itemSlots; i++) {
         bool itemExists = i < items.size();
         QIcon icon = itemExists ? *items[i]->icon : QIcon(":/images/emptyItemSlot.png");
@@ -46,6 +46,16 @@ void MainWindow::setInventoryItems() {
     }
 }
 
+void MainWindow::setPlayerEquipment() {
+	Weapon* weapon = zork.getPlayer()->getWeapon();
+	bool hasWeapon = weapon;
+	QIcon icon = hasWeapon ? *weapon->icon : QIcon(":/images/emptyItemSlot.png");
+	QString toolTipText = hasWeapon ? QString::fromStdString(weapon->getLongDescription()) : "";
+
+	ui->weaponSlot->setIcon(icon);
+	ui->weaponSlot->setToolTip(toolTipText);
+}
+
 MainWindow::~MainWindow() {
     delete ui;
 }
@@ -54,10 +64,11 @@ void MainWindow::displayCurrentRoomInfo() {
     QString roomInfo = QString::fromStdString(zork.getCurrentRoomInfo());
     ui->mainDisplayLabel->setText(roomInfo);
 
-	QString health = QString::fromStdString("Health: " + std::to_string(zork.getCharacter()->getHealth()));
+	QString health = QString::fromStdString("Health: " + std::to_string(zork.getPlayer()->getHealth()));
 	ui->healthLabel->setText(health);
     setRoomItems();
     setInventoryItems();
+	setPlayerEquipment();
 }
 
 void MainWindow::goToRoom(string direction) {
@@ -90,7 +101,7 @@ void MainWindow::on_teleportButton_clicked() {
 }
 
 void MainWindow::on_takeButton_clicked() {
-    if (zork.getCharacterInventory()->getNumberOfItems() >= Room::itemSlots) {
+	if (zork.getPlayerInventory()->getNumberOfItems() >= Room::itemSlots) {
         displayAlert("Your inventory is full!\nTry placing an item in the room before taking another one.");
         return;
     }
@@ -139,7 +150,7 @@ void MainWindow::selectRoomItem(const int itemIndex) {
 
 void MainWindow::selectInventoryItem(const int itemIndex) {
 	removeInventoryItemSelectionFrame();
-	Inventory* inventory = zork.getCharacterInventory();
+	Inventory* inventory = zork.getPlayerInventory();
 	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
 	ui->putButton->setEnabled(true);
 	inventory->selectItem(itemIndex);
@@ -175,14 +186,14 @@ void MainWindow::displayAlert(const string message) {
 }
 
 void MainWindow::on_useButton_clicked() {
-	vector<Item*> items = zork.getCharacterInventory()->getItems();
+	vector<Item*> items = zork.getPlayerInventory()->getItems();
 	for (unsigned int i = 0 ; i < items.size(); i++) {
-		if (items[i]->isSelected && items[i]->action != NULL) {
+		if (items[i]->isSelected() && items[i]->action != NULL) {
 			items[i]->action();
 			log(items[i]->getActionDescription());
 
 			if(items[i]->isConsumable()) {
-				zork.getCharacterInventory()->removeItem(i);
+				zork.getPlayerInventory()->removeItem(i);
 				removeInventoryItemSelectionFrame();
 				ui->putButton->setEnabled(false);
 				ui->useButton->setEnabled(false);
@@ -192,4 +203,8 @@ void MainWindow::on_useButton_clicked() {
 			return;
 		}
 	}
+}
+
+void MainWindow::on_weaponSlot_clicked() {
+
 }

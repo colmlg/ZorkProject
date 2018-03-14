@@ -22,12 +22,12 @@ public:
     //MARK: Game commands
     void teleport();
     string go(string direction);
-    Inventory* getCharacterInventory();
+    Inventory* getPlayerInventory();
     Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();
 	void takeSelectedItem();
 	void placeSelectedItem();
-	Player* getCharacter();
+	Player* getPlayer();
 };
 
 #endif /*ZORKUL_H_*/

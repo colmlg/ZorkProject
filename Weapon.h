@@ -6,7 +6,7 @@ enum WeaponType {
 	metal, magic, fire
 };
 
-class Weapon: Item {
+class Weapon: public Item {
 private:
 	int damageMultiplier;
 	WeaponType weaponType;

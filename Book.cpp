@@ -1,7 +1,6 @@
 #include "Book.h"
 
 Book::Book() {
-	description = "book";
 	longDescription = "A mysterious glowing book.";
 	consumable = true;
 	actionDescription = "You are teleported to a new room.";

@@ -38,6 +38,8 @@ private slots:
 
     void on_useButton_clicked();
 
+	void on_weaponSlot_clicked();
+
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;
@@ -47,6 +49,7 @@ private:
     void updateInventoryLabel();
     void setRoomItems();
     void setInventoryItems();
+	void setPlayerEquipment();
     void selectRoomItem(int itemIndex);
     void selectInventoryItem(int itemIndex);
     void goToRoom(std::string direction);
