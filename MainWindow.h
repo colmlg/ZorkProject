@@ -40,6 +40,8 @@ private slots:
 
 	void on_weaponSlot_clicked();
 
+    void on_equipButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;

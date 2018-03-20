@@ -20,7 +20,7 @@ void ZorkUL::createRooms() {
 	Item* poisonBerryItem = new Item(poisonBerry);
 	poisonBerryItem->action = [this]{ player->takeDamage(Constants::poisonBerryDamage); };
 
-	Item* swordItem = new Item(sword);
+    Weapon* swordItem = new Weapon(sword);
 
 	a = new Room("a");
 	a->inventory->addItem(bookItem);

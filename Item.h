@@ -26,6 +26,7 @@ public:
     bool isConsumable();
 	bool isSelected();
 	void setSelected(bool selected);
+    virtual bool isWeapon();
 };
 
 #endif /*ITEM_H_*/

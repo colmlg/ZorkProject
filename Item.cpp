@@ -60,3 +60,7 @@ void Item::setSelected(bool selected) {
 string Item::getActionDescription() {
     return actionDescription;
 }
+
+bool Item::isWeapon() {
+    return false;
+}

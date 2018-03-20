@@ -6,7 +6,7 @@
 
 class Player: public Entity {
 private:
-	Weapon* weapon;
+    Weapon* weapon = NULL;
 
 public:
 	Player();
@@ -15,7 +15,6 @@ public:
 	void setWeapon(Weapon* weapon);
 	Weapon* takeWeapon();
 	Weapon* getWeapon();
-
 };
 
 #endif /*PLAYER_H_*/

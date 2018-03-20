@@ -12,9 +12,10 @@ private:
 	WeaponType weaponType;
 public:
 	Weapon(int damageMultiplier, WeaponType weaponType);
+    Weapon(ItemType itemType);
 	int getDamageMuliplier();
 	WeaponType getWeaponType();
-
+    virtual bool isWeapon();
 };
 
 #endif // WEAPON_H

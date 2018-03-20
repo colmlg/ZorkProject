@@ -47,13 +47,14 @@ void MainWindow::setInventoryItems() {
 }
 
 void MainWindow::setPlayerEquipment() {
-	Weapon* weapon = zork.getPlayer()->getWeapon();
-	bool hasWeapon = weapon;
-	QIcon icon = hasWeapon ? *weapon->icon : QIcon(":/images/emptyItemSlot.png");
-	QString toolTipText = hasWeapon ? QString::fromStdString(weapon->getLongDescription()) : "";
+    Weapon* weapon = zork.getPlayer()->getWeapon();
+    bool hasWeapon = weapon != NULL;
+    QIcon icon = hasWeapon ? *weapon->icon : QIcon(":/images/emptyItemSlot.png");
+    QString toolTipText = hasWeapon ? QString::fromStdString(weapon->getLongDescription()) : "";
 
-	ui->weaponSlot->setIcon(icon);
-	ui->weaponSlot->setToolTip(toolTipText);
+    ui->weaponSlot->setIcon(icon);
+    ui->weaponSlot->setToolTip(toolTipText);
+    ui->weaponSlot->setEnabled(hasWeapon);
 }
 
 MainWindow::~MainWindow() {
@@ -152,6 +153,7 @@ void MainWindow::selectInventoryItem(const int itemIndex) {
 	removeInventoryItemSelectionFrame();
 	Inventory* inventory = zork.getPlayerInventory();
 	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
+    ui->equipButton->setEnabled(inventory->getItems()[itemIndex]->isWeapon());
 	ui->putButton->setEnabled(true);
 	inventory->selectItem(itemIndex);
 	inventoryItemButtons[itemIndex]->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
@@ -167,6 +169,7 @@ void MainWindow::removeInventoryItemSelectionFrame() {
 	for (QPushButton* button : inventoryItemButtons) {
 		button->setStyleSheet("");
 	}
+    ui->weaponSlot->setStyleSheet("");
 }
 
 void MainWindow::on_inventoryItem0_clicked() { selectInventoryItem(0); }
@@ -206,5 +209,21 @@ void MainWindow::on_useButton_clicked() {
 }
 
 void MainWindow::on_weaponSlot_clicked() {
+    removeInventoryItemSelectionFrame();
+    ui->weaponSlot->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
+}
 
+void MainWindow::on_equipButton_clicked() {
+    removeInventoryItemSelectionFrame();
+    vector<Item*> items = zork.getPlayerInventory()->getItems();
+    for(unsigned int i = 0 ; i < items.size(); i++) {
+        if(items[i]->isSelected()) {
+            zork.getPlayer()->setWeapon((Weapon*) items[i]);
+            zork.getPlayerInventory()->removeItem(i);
+            ui->putButton->setEnabled(false);
+            ui->equipButton->setEnabled(false);
+            displayCurrentRoomInfo();
+            return;
+        }
+    }
 }

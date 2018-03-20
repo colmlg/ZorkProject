@@ -496,8 +496,8 @@ outline: none;
      <rect>
       <x>110</x>
       <y>450</y>
-      <width>85</width>
-      <height>27</height>
+      <width>80</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="text">
@@ -563,9 +563,9 @@ outline: none;
    <widget class="QPushButton" name="weaponSlot">
     <property name="geometry">
      <rect>
-      <x>970</x>
+      <x>965</x>
       <y>230</y>
-      <width>46</width>
+      <width>54</width>
       <height>54</height>
      </rect>
     </property>
@@ -595,6 +595,22 @@ outline: none;
     </property>
     <property name="flat">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="equipButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>450</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Equip</string>
     </property>
    </widget>
   </widget>
