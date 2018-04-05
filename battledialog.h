@@ -4,6 +4,12 @@
 #include <QDialog>
 #include "Enemy.h"
 
+#define RUN 2
+#define ATTACK 3
+#define HIDE 4
+#define PLAYDEAD 5
+
+
 namespace Ui {
 class BattleDialog;
 }
@@ -13,9 +19,10 @@ class BattleDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BattleDialog(QWidget *parent = 0);
     BattleDialog(Enemy* enemy);
     ~BattleDialog();
+//	void finished(int result);
+	int result = 0;
 
 private slots:
     void on_optionOne_clicked();
@@ -25,6 +32,8 @@ private slots:
     void on_optionThree_clicked();
 
     void on_optionFour_clicked();
+
+	void on_buttonBox_accepted();
 
 private:
     Ui::BattleDialog *ui;

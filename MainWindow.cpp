@@ -78,13 +78,34 @@ void MainWindow::goToRoom(string direction) {
     zork.getCurrentRoomInventory()->deselectItems();
     removeRoomItemSelectionFrame();
     ui->takeButton->setEnabled(false);
-    Room* newRoom = zork.go(direction);
+
+	zork.go(direction);
     displayCurrentRoomInfo();
-    if (newRoom->hasEnemy()) {
-        BattleDialog* dialog = new BattleDialog();
+
+	Enemy* enemy = zork.getCurrentRoom()->getEnemy();
+	if (enemy != NULL) {
+		BattleDialog* dialog = new BattleDialog(enemy);
         dialog->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint);
+		dialog->connect(dialog, SIGNAL(finished(int)), this, SLOT(on_dialog_finished(int)));
         dialog->show();
     }
+}
+
+void MainWindow::on_dialog_finished(int result) {
+	switch (result) {
+	case ATTACK:
+		cout << "Attack!" << endl;
+		break;
+	case RUN:
+		cout << "Run!" << endl;
+		break;
+	case HIDE:
+		cout << "Hide!" << endl;
+		break;
+	case PLAYDEAD:
+		cout << "Play Dead!" << endl;
+		break;
+	}
 }
 
 void MainWindow::on_northButton_clicked(){
@@ -101,11 +122,6 @@ void MainWindow::on_eastButton_clicked() {
 
 void MainWindow::on_westButton_clicked() {
     goToRoom("west");
-}
-
-void MainWindow::on_teleportButton_clicked() {
-    zork.teleport();
-    displayCurrentRoomInfo();
 }
 
 void MainWindow::on_takeButton_clicked() {
@@ -162,6 +178,7 @@ void MainWindow::selectInventoryItem(const int itemIndex) {
 	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
     ui->equipButton->setEnabled(inventory->getItems()[itemIndex]->isWeapon() && zork.getPlayer()->getWeapon() == NULL);
 	ui->putButton->setEnabled(true);
+	ui->unequipButton->setEnabled(false);
 	inventory->selectItem(itemIndex);
 	inventoryItemButtons[itemIndex]->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
 }

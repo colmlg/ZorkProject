@@ -31,6 +31,10 @@ public:
         return enemy != NULL;
     }
 
+	Enemy* getEnemy() {
+		return enemy;
+	}
+
     static const int itemSlots = 4;
 };
 

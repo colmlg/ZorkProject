@@ -21,7 +21,6 @@ private slots:
     void on_eastButton_clicked();
     void on_westButton_clicked();
 
-    void on_teleportButton_clicked();
     void on_takeButton_clicked();
     void on_putButton_clicked();
 
@@ -43,6 +42,8 @@ private slots:
     void on_equipButton_clicked();
 
     void on_unequipButton_clicked();
+
+	void on_dialog_finished(int result);
 
 private:
     Ui::MainWindow *ui;

@@ -31,8 +31,8 @@ void ZorkUL::createRooms() {
     rooms["b"]->inventory->addItem(swordItem);
     rooms["b"]->inventory->addItem(bookItem);
 
-    Enemy* someMonster = new Enemy(10, 50);
-    rooms["b"]->setEnemy(someMonster);
+	Enemy* badWolf = new Enemy(10, 50, "Big bad wolf");
+	rooms["b"]->setEnemy(badWolf);
 
     rooms["c"] = new Room("c");
     rooms["d"] = new Room("d");
@@ -94,12 +94,20 @@ string ZorkUL::getCurrentRoomInfo() {
     return currentRoom->longDescription();
 }
 
-Room* ZorkUL::go(string direction) {
+void ZorkUL::go(string direction) {
     Room* nextRoom = currentRoom->nextRoom(direction);
+
+	if (nextRoom == NULL) {
+		return;
+	}
+
     currentRoom = nextRoom;
-    return currentRoom;
 }
 
 Player* ZorkUL::getPlayer() {
 	return player;
+}
+
+Room* ZorkUL::getCurrentRoom() {
+	return currentRoom;
 }

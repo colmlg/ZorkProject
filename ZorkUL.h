@@ -19,9 +19,8 @@ private:
 public:
     ZorkUL();
     string getCurrentRoomInfo();
-    //MARK: Game commands
     void teleport();
-    Room* go(string direction);
+	void go(string direction);
     Inventory* getPlayerInventory();
     Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();
