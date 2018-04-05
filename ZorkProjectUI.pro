@@ -35,7 +35,8 @@ SOURCES += \
     Enemy.cpp \
     Entity.cpp \
     Player.cpp \
-    Weapon.cpp
+    Weapon.cpp \
+    battledialog.cpp
 
 HEADERS += \
     Inventory.h \
@@ -49,10 +50,12 @@ HEADERS += \
     Entity.h \
     Player.h \
     Weapon.h \
-    Constants.h
+    Constants.h \
+    battledialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    battledialog.ui
 
 RESOURCES += \
     images.qrc

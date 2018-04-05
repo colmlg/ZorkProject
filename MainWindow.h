@@ -42,6 +42,8 @@ private slots:
 
     void on_equipButton_clicked();
 
+    void on_unequipButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ZorkUL zork;

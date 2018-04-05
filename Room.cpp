@@ -39,3 +39,7 @@ Room* Room::nextRoom(string direction) {
     return next->second; // If there is a room, remove the "second" (Room*)
     // part of the "pair" (<string, Room*>) and return it.
 }
+
+void Room::setEnemy(Enemy* enemy) {
+    this->enemy = enemy;
+}

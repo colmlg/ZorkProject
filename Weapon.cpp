@@ -11,6 +11,7 @@ Weapon::Weapon(ItemType itemType)
     case sword:
         weaponType = metal;
         damageMultiplier = 2;
+        break;
     default:
         damageMultiplier = 1;
     }
@@ -18,4 +19,8 @@ Weapon::Weapon(ItemType itemType)
 
 bool Weapon::isWeapon() {
     return true;
+}
+
+int Weapon::getDamageMuliplier() {
+    return damageMultiplier;
 }

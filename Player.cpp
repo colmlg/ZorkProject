@@ -5,8 +5,6 @@ Player::Player() {
 	attack = 5;
 }
 
-int Player::dealDamage() { return 1; }
-
 void Player::setWeapon(Weapon* weapon) {
 	this->weapon = weapon;
 }
@@ -14,3 +12,14 @@ void Player::setWeapon(Weapon* weapon) {
 Weapon* Player::getWeapon() {
 	return weapon;
 }
+
+Weapon* Player::takeWeapon() {
+    Weapon *returnWeapon = weapon;
+    weapon = NULL;
+    return returnWeapon;
+}
+
+int Player::getAttack(){
+    return weapon == NULL ? attack : attack * weapon->getDamageMuliplier();
+}
+

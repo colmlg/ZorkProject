@@ -11,10 +11,10 @@ private:
 public:
 	Player();
     Inventory* inventory = new Inventory();
-	int dealDamage();
 	void setWeapon(Weapon* weapon);
 	Weapon* takeWeapon();
 	Weapon* getWeapon();
+    int getAttack();
 };
 
 #endif /*PLAYER_H_*/

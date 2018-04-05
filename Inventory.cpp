@@ -39,4 +39,3 @@ std::vector<Item*> Inventory::getItems() {
 void Inventory::removeItem(int index) {
     items.erase(items.begin() + index);
 }
-

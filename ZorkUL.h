@@ -12,7 +12,7 @@ class ZorkUL {
 private:
     Player *player;
     Room *currentRoom;
-    Room *rooms[10];
+    map<string, Room*> rooms;
     void createRooms();
     void createItems();
 	void moveSelectedItem(Inventory* fromInventory, Inventory* toInventory);
@@ -21,7 +21,7 @@ public:
     string getCurrentRoomInfo();
     //MARK: Game commands
     void teleport();
-    string go(string direction);
+    Room* go(string direction);
     Inventory* getPlayerInventory();
     Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();

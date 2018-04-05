@@ -10,7 +10,6 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms() {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
 	Item* bookItem = new Item(book);
 	bookItem->action = [this]{ teleport(); };
 
@@ -22,49 +21,41 @@ void ZorkUL::createRooms() {
 
     Weapon* swordItem = new Weapon(sword);
 
-	a = new Room("a");
-	a->inventory->addItem(bookItem);
-	a->inventory->addItem(berryItem);
-	a->inventory->addItem(swordItem);
-	a->inventory->addItem(poisonBerryItem);
+    rooms["a"] = new Room("a");
+    rooms["a"]->inventory->addItem(bookItem);
+    rooms["a"]->inventory->addItem(berryItem);
+    rooms["a"]->inventory->addItem(swordItem);
+    rooms["a"]->inventory->addItem(poisonBerryItem);
 
-    b = new Room("b");
-	b->inventory->addItem(swordItem);
-	b->inventory->addItem(bookItem);
+    rooms["b"] = new Room("b");
+    rooms["b"]->inventory->addItem(swordItem);
+    rooms["b"]->inventory->addItem(bookItem);
 
-    c = new Room("c");
-    d = new Room("d");
-    e = new Room("e");
-    f = new Room("f");
-    g = new Room("g");
-    h = new Room("h");
-    i = new Room("i");
-    j = new Room("j");
+    Enemy* someMonster = new Enemy(10, 50);
+    rooms["b"]->setEnemy(someMonster);
+
+    rooms["c"] = new Room("c");
+    rooms["d"] = new Room("d");
+    rooms["e"] = new Room("e");
+    rooms["f"] = new Room("f");
+    rooms["g"] = new Room("g");
+    rooms["h"] = new Room("h");
+    rooms["i"] = new Room("i");
+    rooms["j"] = new Room("j");
 
     //             (N, E, S, W)
-    a->setExits(f, b, d, c);
-    b->setExits(NULL, NULL, NULL, a);
-    c->setExits(NULL, a, NULL, NULL);
-    d->setExits(a, e, NULL, i);
-    e->setExits(NULL, NULL, NULL, d);
-    f->setExits(NULL, g, a, h);
-    g->setExits(NULL, NULL, NULL, f);
-    h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, j, NULL);
-    j->setExits(i, NULL, NULL, NULL);
+    rooms["a"]->setExits(rooms["f"], rooms["b"], rooms["d"], rooms["c"]);
+    rooms["b"]->setExits(NULL, NULL, NULL, rooms["a"]);
+    rooms["c"]->setExits(NULL, rooms["a"], NULL, NULL);
+    rooms["d"]->setExits(rooms["a"], rooms["e"], NULL, rooms["i"]);
+    rooms["e"]->setExits(NULL, NULL, NULL, rooms["d"]);
+    rooms["f"]->setExits(NULL, rooms["g"], rooms["a"], rooms["h"]);
+    rooms["g"]->setExits(NULL, NULL, NULL, rooms["f"]);
+    rooms["h"]->setExits(NULL, rooms["f"], NULL, NULL);
+    rooms["i"]->setExits(NULL, rooms["d"], rooms["j"], NULL);
+    rooms["j"]->setExits(rooms["i"], NULL, NULL, NULL);
 
-    currentRoom = a;
-
-    rooms[0] = a;
-    rooms[1] = b;
-    rooms[2] = c;
-    rooms[3] = d;
-    rooms[4] = e;
-    rooms[5] = f;
-    rooms[6] = g;
-    rooms[7] = h;
-    rooms[8] = i;
-    rooms[9] = j;
+    currentRoom = rooms["a"];
 }
 
 Inventory* ZorkUL::getPlayerInventory() {
@@ -94,22 +85,19 @@ void ZorkUL::placeSelectedItem() {
 }
 
 void ZorkUL::teleport() {
-    int roomNumber = rand() % 10;
-    currentRoom = rooms[roomNumber];
+    auto iterator = rooms.begin();
+    std::advance(iterator, rand() % rooms.size());
+    currentRoom = iterator->second;
 }
 
 string ZorkUL::getCurrentRoomInfo() {
     return currentRoom->longDescription();
 }
 
-string ZorkUL::go(string direction) {
+Room* ZorkUL::go(string direction) {
     Room* nextRoom = currentRoom->nextRoom(direction);
-    if (nextRoom == NULL)
-        return ("direction null");
-    else {
-        currentRoom = nextRoom;
-        return currentRoom->longDescription();
-    }
+    currentRoom = nextRoom;
+    return currentRoom;
 }
 
 Player* ZorkUL::getPlayer() {

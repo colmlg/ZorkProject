@@ -443,19 +443,6 @@ outline: none;
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="teleportButton">
-    <property name="geometry">
-     <rect>
-      <x>880</x>
-      <y>150</y>
-      <width>189</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Teleport</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="putButton">
     <property name="enabled">
      <bool>false</bool>
@@ -507,9 +494,9 @@ outline: none;
    <widget class="QLabel" name="healthLabel">
     <property name="geometry">
      <rect>
-      <x>950</x>
+      <x>930</x>
       <y>300</y>
-      <width>121</width>
+      <width>71</width>
       <height>20</height>
      </rect>
     </property>
@@ -521,7 +508,7 @@ outline: none;
      </font>
     </property>
     <property name="text">
-     <string>Health: 0</string>
+     <string>Health:</string>
     </property>
    </widget>
    <widget class="QLabel" name="inventoryItemInfoLabel">
@@ -611,6 +598,79 @@ outline: none;
     </property>
     <property name="text">
      <string>Equip</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="unequipButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>250</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Unequip</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="healthBar">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>300</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="healthLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>330</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Attack:</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="attackValue">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>330</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="digitCount">
+     <number>10</number>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
     </property>
    </widget>
   </widget>

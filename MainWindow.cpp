@@ -1,11 +1,14 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
+#include "battledialog.h"
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    ui->attackValue->setSegmentStyle(QLCDNumber::SegmentStyle::Flat);
 
     roomItemButtons[0] = ui->roomItem0;
     roomItemButtons[1] = ui->roomItem1;
@@ -64,9 +67,8 @@ MainWindow::~MainWindow() {
 void MainWindow::displayCurrentRoomInfo() {
     QString roomInfo = QString::fromStdString(zork.getCurrentRoomInfo());
     ui->mainDisplayLabel->setText(roomInfo);
-
-	QString health = QString::fromStdString("Health: " + std::to_string(zork.getPlayer()->getHealth()));
-	ui->healthLabel->setText(health);
+    ui->healthBar->setValue(zork.getPlayer()->getHealth());
+    ui->attackValue->display(zork.getPlayer()->getAttack());
     setRoomItems();
     setInventoryItems();
 	setPlayerEquipment();
@@ -76,8 +78,13 @@ void MainWindow::goToRoom(string direction) {
     zork.getCurrentRoomInventory()->deselectItems();
     removeRoomItemSelectionFrame();
     ui->takeButton->setEnabled(false);
-    zork.go(direction);
+    Room* newRoom = zork.go(direction);
     displayCurrentRoomInfo();
+    if (newRoom->hasEnemy()) {
+        BattleDialog* dialog = new BattleDialog();
+        dialog->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint);
+        dialog->show();
+    }
 }
 
 void MainWindow::on_northButton_clicked(){
@@ -153,7 +160,7 @@ void MainWindow::selectInventoryItem(const int itemIndex) {
 	removeInventoryItemSelectionFrame();
 	Inventory* inventory = zork.getPlayerInventory();
 	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
-    ui->equipButton->setEnabled(inventory->getItems()[itemIndex]->isWeapon());
+    ui->equipButton->setEnabled(inventory->getItems()[itemIndex]->isWeapon() && zork.getPlayer()->getWeapon() == NULL);
 	ui->putButton->setEnabled(true);
 	inventory->selectItem(itemIndex);
 	inventoryItemButtons[itemIndex]->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
@@ -211,6 +218,9 @@ void MainWindow::on_useButton_clicked() {
 void MainWindow::on_weaponSlot_clicked() {
     removeInventoryItemSelectionFrame();
     ui->weaponSlot->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
+    ui->unequipButton->setEnabled(true);
+    ui->putButton->setEnabled(false);
+    ui->useButton->setEnabled(false);
 }
 
 void MainWindow::on_equipButton_clicked() {
@@ -226,4 +236,18 @@ void MainWindow::on_equipButton_clicked() {
             return;
         }
     }
+}
+
+void MainWindow::on_unequipButton_clicked() {
+    vector<Item*> items = zork.getPlayerInventory()->getItems();
+    if (items.size() >= 4) {
+        displayAlert("Your inventory is too full to unequip this item.");
+        return;
+    }
+
+    Item* weapon = (Item*) zork.getPlayer()->takeWeapon();
+    zork.getPlayerInventory()->addItem(weapon);
+    ui->unequipButton->setEnabled(false);
+    ui->weaponSlot->setStyleSheet("");
+    displayCurrentRoomInfo();
 }
