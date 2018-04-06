@@ -4,7 +4,7 @@ BattleDialog::BattleDialog(Enemy *enemy) :
 	ui(new Ui::BattleDialog) {
 	ui->setupUi(this);
 	ui->label->setText(QString::fromStdString("A menacing " + enemy->getName() + " appears before you. What do you do?"));
-	ui->progressBar->setValue(100 * enemy->getCurrentHealthPercentage());
+	ui->progressBar->setValue(enemy->getCurrentHealthPercentage());
 	ui->optionOne->setText("Run");
 	ui->optionTwo->setText("Attack");
 	ui->optionThree->setText("Hide");

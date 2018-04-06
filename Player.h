@@ -10,7 +10,8 @@ private:
 
 public:
 	Player();
-    Inventory* inventory = new Inventory();
+	~Player();
+	Inventory* inventory = new Inventory();
 	void setWeapon(Weapon* weapon);
 	Weapon* takeWeapon();
 	Weapon* getWeapon();

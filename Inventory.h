@@ -8,6 +8,7 @@ class Inventory {
 private:
     std::vector <Item*> items;
 public:
+	~Inventory();
     void addItem(Item* item);
 	Item* takeSelectedItem();
     std::vector <Item*> getItems();
@@ -15,6 +16,5 @@ public:
     void deselectItems();
     int getNumberOfItems();
     void removeItem(int index);
-
 };
 #endif /* INVENTORY_H */

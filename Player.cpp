@@ -5,6 +5,11 @@ Player::Player() {
 	attack = 5;
 }
 
+Player::~Player() {
+	delete weapon;
+	delete inventory;
+}
+
 void Player::setWeapon(Weapon* weapon) {
 	this->weapon = weapon;
 }

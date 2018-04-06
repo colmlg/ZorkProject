@@ -21,7 +21,6 @@ class BattleDialog : public QDialog
 public:
     BattleDialog(Enemy* enemy);
     ~BattleDialog();
-//	void finished(int result);
 	int result = 0;
 
 private slots:

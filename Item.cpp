@@ -8,11 +8,15 @@ using std::cout;
 using std::to_string;
 
 Item::Item(){}
+Item::~Item() {
+	delete icon;
+}
 
 Item::Item(ItemType type) {
 	switch (type) {
 	case book:
 		longDescription = "A mysterious glowing book.";
+		shortDescription = "book";
 		consumable = true;
 		actionDescription = "You are teleported to a new room.";
 		icon = new QIcon(QString::fromStdString(":/images/items/Book_03.png"));
@@ -20,6 +24,7 @@ Item::Item(ItemType type) {
 
 	case sword:
 		longDescription = "A shiny metal sword.";
+		shortDescription = "sword";
 		consumable = false;
 		actionDescription = "You are teleported to a new room.";
 		icon = new QIcon(QString::fromStdString(":/images/items/metal_sword.png"));
@@ -27,6 +32,7 @@ Item::Item(ItemType type) {
 
 	case berry:
 		longDescription = "A delicious looking berry.";
+		shortDescription = "berry";
 		consumable = true;
 		actionDescription = "You eat the berry and feel a bit better. You have been healed for " + to_string(Constants::berryHealAmount) + " points of health.";
 		icon = new QIcon(QString::fromStdString(":/images/items/Berry_03.png"));
@@ -34,6 +40,7 @@ Item::Item(ItemType type) {
 
 	case poisonBerry:
 		longDescription = "A delicious looking berry.";
+		shortDescription = "berry";
 		consumable = true;
 		actionDescription = "Ouch, the berry turned out to be poisonous! You have been dealt " + to_string(Constants::poisonBerryDamage) + " damage.";
 		icon = new QIcon(QString::fromStdString(":/images/items/Berry_02.png"));
@@ -63,4 +70,8 @@ string Item::getActionDescription() {
 
 bool Item::isWeapon() {
     return false;
+}
+
+string Item::getShortDescription() {
+	return shortDescription;
 }

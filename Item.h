@@ -11,11 +11,13 @@ enum ItemType {
 class Item {
 protected:
 	std::string longDescription;
+	std::string shortDescription;
 	std::string actionDescription;
 	bool consumable;
 	bool selected = false;
 
 public:
+	virtual ~Item();
 	Item();
 	Item(ItemType);
     QIcon* icon;

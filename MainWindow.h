@@ -3,6 +3,7 @@
 #include "ZorkUL.h"
 #include <QMainWindow>
 #include <QPushButton>
+#include "Constants.h"
 
 namespace Ui {
 class MainWindow;
@@ -47,14 +48,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    ZorkUL zork;
-    QPushButton* roomItemButtons[Room::itemSlots];
-    QPushButton* inventoryItemButtons[Room::itemSlots];
+	ZorkUL* zork;
+	QPushButton* roomItemButtons[Constants::itemSlots];
+	QPushButton* inventoryItemButtons[Constants::itemSlots];
     void displayCurrentRoomInfo();
     void updateInventoryLabel();
+	void setItems(QPushButton** buttons, vector<Item*> items);
     void setRoomItems();
     void setInventoryItems();
-	void setPlayerEquipment();
+	void setWeapon();
     void selectRoomItem(int itemIndex);
     void selectInventoryItem(int itemIndex);
     void goToRoom(std::string direction);
@@ -62,6 +64,9 @@ private:
     void removeInventoryItemSelectionFrame();
     void log(string input);
     void displayAlert(string message);
+	void displayBattleDialog();
+	void executeBattleOption(string logMessage);
+	void checkGameState();
 };
 
 #endif // MAINWINDOW_H

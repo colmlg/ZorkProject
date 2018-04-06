@@ -10,14 +10,18 @@ using namespace std;
 
 class ZorkUL {
 private:
-    Player *player;
-    Room *currentRoom;
+	Player* player;
+	Room* currentRoom;
+	Room* previousRoom;
     map<string, Room*> rooms;
     void createRooms();
     void createItems();
 	void moveSelectedItem(Inventory* fromInventory, Inventory* toInventory);
+	bool playerWon = false;
+	int getRandom(int min, int max);
 public:
-    ZorkUL();
+	ZorkUL();
+	~ZorkUL();
     string getCurrentRoomInfo();
     void teleport();
 	void go(string direction);
@@ -27,6 +31,12 @@ public:
 	void takeSelectedItem();
 	void placeSelectedItem();
 	Player* getPlayer();
+	string attackEnemy();
+	string runFromEnemy();
+	string hideFromEnemy();
+	string playDead();
+	bool hasPlayerWon();
+	bool hasPlayerLost();
 };
 
 #endif /*ZORKUL_H_*/

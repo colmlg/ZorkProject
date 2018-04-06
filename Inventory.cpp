@@ -1,6 +1,12 @@
 #include "Inventory.h"
 using std::string;
 
+Inventory::~Inventory() {
+	for(Item* item : items) {
+		delete item;
+	}
+}
+
 void Inventory::addItem(Item* item) {
     items.push_back(item);
 }

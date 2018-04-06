@@ -1,4 +1,7 @@
 #include "Entity.h"
+
+Entity::~Entity() {}
+
 int Entity::getAttack() {
 	return attack;
 }

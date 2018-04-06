@@ -31,7 +31,6 @@ SOURCES += \
     Room.cpp \
     ZorkUL.cpp \
     MainWindow.cpp \
-    Book.cpp \
     Enemy.cpp \
     Entity.cpp \
     Player.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     ZorkUL.h \
     MainWindow.h \
     Direction.h \
-    Book.h \
     Enemy.h \
     Entity.h \
     Player.h \

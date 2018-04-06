@@ -17,8 +17,8 @@ private:
     string exitString();
     Enemy* enemy = NULL;
 
-
 public:
+	~Room();
     int numberOfItems();
     Room(string description);
     void setExits(Room *north, Room *east, Room *south, Room *west);
@@ -34,8 +34,6 @@ public:
 	Enemy* getEnemy() {
 		return enemy;
 	}
-
-    static const int itemSlots = 4;
 };
 
 #endif

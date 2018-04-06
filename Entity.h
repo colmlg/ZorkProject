@@ -7,6 +7,7 @@ protected:
 	int health;
 	int attack;
 public:
+	virtual ~Entity();
     virtual int getAttack();
     int getHealth();
 	void takeDamage(int amount);
