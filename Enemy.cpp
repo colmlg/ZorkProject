@@ -1,11 +1,12 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int attack, int health, string name, Item* itemDrop) {
+Enemy::Enemy(int attack, int health, string name, Item* itemDrop, string imagePath) {
 	this->attack = attack;
 	this->health = health;
 	this->maxHealth = health;
 	this->name = name;
 	this->itemDrop = itemDrop;
+	this->imagePath = imagePath;
 }
 
 string Enemy::getName() {
@@ -18,4 +19,8 @@ double Enemy::getCurrentHealthPercentage() {
 
 Item* Enemy::getItem() {
 	return itemDrop;
+}
+
+string Enemy::getImagePath() {
+	return imagePath;
 }

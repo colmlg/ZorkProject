@@ -33,7 +33,7 @@ void ZorkUL::createRooms() {
     rooms["a"]->inventory->addItem(swordItem);
     rooms["a"]->inventory->addItem(poisonBerryItem);
 
-	Enemy* badWolf = new Enemy(30, 30, "big bad wolf", berryItem);
+	Enemy* badWolf = new Enemy(30, 30, "big bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
     rooms["b"] = new Room("b");
 	rooms["b"]->setEnemy(badWolf);
 

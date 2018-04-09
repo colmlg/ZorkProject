@@ -3,12 +3,11 @@
 BattleDialog::BattleDialog(Enemy *enemy) :
 	ui(new Ui::BattleDialog) {
 	ui->setupUi(this);
+
 	ui->label->setText(QString::fromStdString("A menacing " + enemy->getName() + " appears before you. What do you do?"));
 	ui->progressBar->setValue(enemy->getCurrentHealthPercentage());
-	ui->optionOne->setText("Run");
-	ui->optionTwo->setText("Attack");
-	ui->optionThree->setText("Hide");
-	ui->optionFour->setText("Play Dead");
+	QPixmap image(QString::fromStdString(enemy->getImagePath()));
+	ui->image->setPixmap(image);
 }
 
 BattleDialog::~BattleDialog() {
@@ -17,12 +16,12 @@ BattleDialog::~BattleDialog() {
 
 void BattleDialog::on_optionOne_clicked() {
     ui->buttonBox->setEnabled(true);
-	result = RUN;
+	result = ATTACK;
 }
 
 void BattleDialog::on_optionTwo_clicked() {
     ui->buttonBox->setEnabled(true);
-	result = ATTACK;
+	result = RUN;
 }
 
 void BattleDialog::on_optionThree_clicked() {
