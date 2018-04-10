@@ -7,7 +7,7 @@ Map::Map(Room*** rooms) {
 Map::~Map() {
 	for(int i = 0; i < Map::numRows; i++) {
 		for(int j = 0; j < Map::numCols; j++) {
-			delete rooms[i][j];
+				delete rooms[i][j];
 		}
 		delete rooms[i];
 	}
