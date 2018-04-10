@@ -1,16 +1,10 @@
-#include "Weapon.h"
-
-Weapon::Weapon(int damageMultiplier, WeaponType weaponType) {
-	this->damageMultiplier = damageMultiplier;
-	this->weaponType = weaponType;
-}
+#include "weapon.h"
 
 Weapon::Weapon(ItemType itemType)
 : Item(itemType) {
     switch(itemType) {
     case sword:
-        weaponType = metal;
-        damageMultiplier = 2;
+		damageMultiplier = 2;
         break;
     default:
         damageMultiplier = 1;

@@ -2,7 +2,7 @@
 #define BATTLEDIALOG_H
 
 #include <QDialog>
-#include "Enemy.h"
+#include "enemy.h"
 
 #define RUN 2
 #define ATTACK 3

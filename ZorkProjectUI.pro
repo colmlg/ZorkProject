@@ -25,31 +25,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-    Inventory.cpp \
-    Item.cpp \
     main.cpp \
-    Room.cpp \
-    ZorkUL.cpp \
-    MainWindow.cpp \
-    Enemy.cpp \
-    Entity.cpp \
-    Player.cpp \
-    Weapon.cpp \
-    battledialog.cpp
+    battledialog.cpp \
+    map.cpp \
+    zorkgame.cpp \
+    enemy.cpp \
+    entity.cpp \
+    inventory.cpp \
+    item.cpp \
+    mainwindow.cpp \
+    player.cpp \
+    room.cpp \
+    weapon.cpp
 
 HEADERS += \
-    Inventory.h \
-    Item.h \
-    Room.h \
-    ZorkUL.h \
-    MainWindow.h \
-    Direction.h \
-    Enemy.h \
-    Entity.h \
-    Player.h \
-    Weapon.h \
-    Constants.h \
-    battledialog.h
+    battledialog.h \
+    map.h \
+    zorkgame.h \
+    constants.h \
+    direction.h \
+    enemy.h \
+    entity.h \
+    inventory.h \
+    item.h \
+    mainwindow.h \
+    player.h \
+    room.h \
+    weapon.h
 
 FORMS += \
         mainwindow.ui \

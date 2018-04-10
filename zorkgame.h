@@ -1,42 +1,43 @@
 #ifndef ZORKUL_H_
 #define ZORKUL_H_
-
-#include "Room.h"
-#include "Inventory.h"
-#include "Player.h"
 #include <iostream>
 #include <string>
+#include "room.h"
+#include "inventory.h"
+#include "player.h"
+#include "map.h"
+
 using namespace std;
 
-class ZorkUL {
+class ZorkGame {
 private:
 	Player* player;
-	Room* currentRoom;
-	Room* previousRoom;
-    map<string, Room*> rooms;
-    void createRooms();
-    void createItems();
+	Map* map;
 	void moveSelectedItem(Inventory* fromInventory, Inventory* toInventory);
-	bool playerWon = false;
 	int getRandom(int min, int max);
+	Room*** createRooms();
+
 public:
-	ZorkUL();
-	~ZorkUL();
-    string getCurrentRoomInfo();
-    void teleport();
-	void go(string direction);
+	ZorkGame();
+	~ZorkGame();
+	//MARK: Getters & setters
+	string getCurrentRoomInfo();
     Inventory* getPlayerInventory();
     Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();
+	Player* getPlayer();
+	bool hasPlayerWon();
+	bool hasPlayerLost();
+	int getScore();
+	//MARK: Game commands
+	void go(Direction direction);
 	void takeSelectedItem();
 	void placeSelectedItem();
-	Player* getPlayer();
+	//MARK: Battle Commands
 	string attackEnemy();
 	string runFromEnemy();
 	string hideFromEnemy();
 	string playDead();
-	bool hasPlayerWon();
-	bool hasPlayerLost();
 };
 
 #endif /*ZORKUL_H_*/

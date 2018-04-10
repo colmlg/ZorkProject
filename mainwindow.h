@@ -1,9 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "ZorkUL.h"
+#include "zorkgame.h"
 #include <QMainWindow>
 #include <QPushButton>
-#include "Constants.h"
+#include "constants.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,7 +48,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-	ZorkUL* zork;
+	ZorkGame* zork;
 	QPushButton* roomItemButtons[Constants::itemSlots];
 	QPushButton* inventoryItemButtons[Constants::itemSlots];
     void displayCurrentRoomInfo();
@@ -59,7 +59,7 @@ private:
 	void setWeapon();
     void selectRoomItem(int itemIndex);
     void selectInventoryItem(int itemIndex);
-    void goToRoom(std::string direction);
+	void goToRoom(Direction direction);
     void removeRoomItemSelectionFrame();
     void removeInventoryItemSelectionFrame();
     void log(string input);

@@ -1,8 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
-#include "Inventory.h"
-#include "Entity.h"
-#include "Weapon.h"
+#include "inventory.h"
+#include "entity.h"
+#include "weapon.h"
 
 class Player: public Entity {
 private:

@@ -5,7 +5,7 @@
 #include <functional>
 
 enum ItemType {
-	book, sword, berry, poisonBerry
+	teleportBall, sword, berry, poisonBerry
 };
 
 class Item {
@@ -21,7 +21,7 @@ public:
 	Item();
 	Item(ItemType);
     QIcon* icon;
-	std::function<void()> action;
+	std::function<bool()> action;
     std::string getShortDescription();
     std::string getLongDescription();
 	std::string getActionDescription();

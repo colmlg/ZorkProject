@@ -1,5 +1,5 @@
-#include "Item.h"
-#include "Constants.h"
+#include "item.h"
+#include "constants.h"
 #include <iostream>
 #include <sstream>
 
@@ -14,12 +14,12 @@ Item::~Item() {
 
 Item::Item(ItemType type) {
 	switch (type) {
-	case book:
-		longDescription = "A mysterious glowing book.";
-		shortDescription = "book";
+	case teleportBall:
+		longDescription = "A mysterious glowing crystal ball. It looks as if it could help you...";
+		shortDescription = "crstal ball";
 		consumable = true;
-		actionDescription = "You are teleported to a new room.";
-		icon = new QIcon(QString::fromStdString(":/images/items/Book_03.png"));
+		actionDescription = "A brilliant light shines from the ball, blinding you temporarily. When the light fades you find yourself standing on the other side of the chasm.";
+		icon = new QIcon(QString::fromStdString(":/images/items/Crystal Ball_03.png"));
 		break;
 
 	case sword:

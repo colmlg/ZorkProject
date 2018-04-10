@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "Inventory.h"
-#include "Enemy.h"
+#include "inventory.h"
+#include "enemy.h"
 
 using namespace std;
 using std::vector;
@@ -13,18 +13,14 @@ using std::vector;
 class Room {
 private:
     string description;
-    map<string, Room*> exits;
-    string exitString();
-    Enemy* enemy = NULL;
+	Enemy* enemy = NULL;
 
 public:
 	~Room();
     int numberOfItems();
     Room(string description);
-    void setExits(Room *north, Room *east, Room *south, Room *west);
     string shortDescription();
     string longDescription();
-    Room* nextRoom(string direction);
     Inventory* inventory = new Inventory();
     void setEnemy(Enemy* enemy);
     bool hasEnemy() {

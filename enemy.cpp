@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "enemy.h"
 
 Enemy::Enemy(int attack, int health, string name, Item* itemDrop, string imagePath) {
 	this->attack = attack;

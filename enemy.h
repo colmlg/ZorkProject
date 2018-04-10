@@ -1,8 +1,8 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include "Entity.h"
+#include "entity.h"
 #include <string>
-#include <Item.h>
+#include <item.h>
 using std::string;
 
 class Enemy: public Entity {

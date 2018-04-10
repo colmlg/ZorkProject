@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "battledialog.h"
 #include <QMessageBox>
@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	ui->attackValue->setSegmentStyle(QLCDNumber::SegmentStyle::Flat);
 
-	zork = new ZorkUL();
+	zork = new ZorkGame();
 
     roomItemButtons[0] = ui->roomItem0;
     roomItemButtons[1] = ui->roomItem1;
@@ -45,10 +45,16 @@ void MainWindow::displayCurrentRoomInfo() {
 
 void MainWindow::checkGameState() {
 	if (zork->hasPlayerLost()) {
-		displayAlert("Oh no, game over! You have lost all your health. Press OK to start again.");
+		displayAlert("Oh no, game over! You have lost all your health.\nPress OK to start again.");
 		ui->gameLog->setText("");
 		delete zork;
-		zork = new ZorkUL();
+		zork = new ZorkGame();
+		displayCurrentRoomInfo();
+	} else if(zork->hasPlayerWon()) {
+		displayAlert("Congratulations, you beat the final boss and won the game!\nYour score is: " + to_string(zork->getScore()) + "\nPress OK to start again.");
+		ui->gameLog->setText("");
+		delete zork;
+		zork = new ZorkGame();
 		displayCurrentRoomInfo();
 	}
 }
@@ -97,7 +103,7 @@ void MainWindow::displayBattleDialog() {
 	}
 }
 
-void MainWindow::goToRoom(string direction) {
+void MainWindow::goToRoom(Direction direction) {
 	zork->getCurrentRoomInventory()->deselectItems();
     removeRoomItemSelectionFrame();
     ui->takeButton->setEnabled(false);
@@ -129,19 +135,19 @@ void MainWindow::executeBattleOption(string logMessage) {
 }
 
 void MainWindow::on_northButton_clicked(){
-    goToRoom("north");
+	goToRoom(north);
 }
 
 void MainWindow::on_southButton_clicked() {
-    goToRoom("south");
+	goToRoom(south);
 }
 
 void MainWindow::on_eastButton_clicked() {
-    goToRoom("east");
+	goToRoom(east);
 }
 
 void MainWindow::on_westButton_clicked() {
-    goToRoom("west");
+	goToRoom(west);
 }
 
 void MainWindow::on_takeButton_clicked() {
@@ -244,7 +250,11 @@ void MainWindow::on_useButton_clicked() {
 	vector<Item*> items = zork->getPlayerInventory()->getItems();
 	for (unsigned int i = 0 ; i < items.size(); i++) {
 		if (items[i]->isSelected() && items[i]->action != NULL) {
-			items[i]->action();
+			if (!items[i]->action()) {
+				log("It had no effect...");
+				return;
+			}
+
 			log(items[i]->getActionDescription());
 
 			if(items[i]->isConsumable()) {
