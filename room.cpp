@@ -1,7 +1,11 @@
 #include "room.h"
 
-Room::Room(string description) {
-    this->description = description;
+Room::Room(string shortDescription, string longDescription) {
+	this->shortDescription = shortDescription;
+	this->longDescription = longDescription;
+
+	inventory = new Inventory();
+	enemy = NULL;
 }
 
 Room::~Room() {
@@ -9,14 +13,22 @@ Room::~Room() {
 	delete enemy;
 }
 
-string Room::shortDescription() {
-    return description;
+string Room::getShortDescription() {
+	return shortDescription;
 }
 
-string Room::longDescription() {
-	return "room = " + description + ".\n";
+string Room::getLongDescription() {
+	return longDescription;
 }
 
 void Room::setEnemy(Enemy* enemy) {
     this->enemy = enemy;
+}
+
+bool Room::hasEnemy() {
+	return enemy != NULL;
+}
+
+Enemy* Room::getEnemy() {
+	return enemy;
 }

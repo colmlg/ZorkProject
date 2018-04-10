@@ -12,24 +12,20 @@ using std::vector;
 
 class Room {
 private:
-    string description;
-	Enemy* enemy = NULL;
+	string shortDescription;
+	string longDescription;
+	Enemy* enemy;
 
 public:
+	Room(string shortDescription, string longDescription);
 	~Room();
     int numberOfItems();
-    Room(string description);
-    string shortDescription();
-    string longDescription();
-    Inventory* inventory = new Inventory();
+	string getShortDescription();
+	string getLongDescription();
+	Inventory* inventory;
     void setEnemy(Enemy* enemy);
-    bool hasEnemy() {
-        return enemy != NULL;
-    }
-
-	Enemy* getEnemy() {
-		return enemy;
-	}
+	bool hasEnemy();
+	Enemy* getEnemy();
 };
 
 #endif

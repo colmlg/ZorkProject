@@ -10,6 +10,11 @@ ZorkGame::ZorkGame() {
 	player = new Player();
 }
 
+ZorkGame::~ZorkGame() {
+	delete map;
+	delete player;
+}
+
 Room*** ZorkGame::createRooms() {
 	//Reserve space for the array
 	Room*** rooms = new Room**[Map::numRows];
@@ -45,38 +50,38 @@ Room*** ZorkGame::createRooms() {
 	Enemy* badWolf = new Enemy(10, 30, "bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
 	Enemy* bigBadWolf = new Enemy(15, 50, "big bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
 
-	rooms[2][0] = new Room("Start Room");
-	rooms[2][1] = new Room("Second Room.");
-	rooms[1][1] = new Room("Sword Room");
-	rooms[1][1]->inventory->addItem(swordItem);
-	rooms[1][3] = new Room("Berry Room");
-	rooms[1][3]->inventory->addItem(poisonBerryItem);
-	rooms[2][2] = new Room("Easy Wolf Room");
-//	rooms[2][2]->setEnemy(littleBadWolf);
-	rooms[2][3] = new Room("Battle finished room");
-	rooms[1][3] = new Room("Passageway");
-	rooms[0][3] = new Room("Book Room");
-	rooms[0][3]->inventory->addItem(crystalBall);
-	rooms[3][3] = new Room("Passageway");
-	rooms[4][3] = new Room("Passageway");
-	rooms[5][3] = new Room("Berry Room");
-	rooms[5][3]->inventory->addItem(berryItem);
-	rooms[2][4] = new Room("Normal Wolf Room");
-//	rooms[2][4]->setEnemy(badWolf);
-	rooms[2][5] = new Room("Room with a gap");
-	rooms[2][7] = new Room("After gap");
-	rooms[1][7] = new Room("Dead end");
-	rooms[3][7] = new Room("Passageway");
-	rooms[4][7] = new Room("Poison berry");
-	rooms[4][7]->inventory->addItem(poisonBerryItem);
-	rooms[2][8] = new Room("Final Boss");
-//	rooms[2][8]->setEnemy(bigBadWolf);
-	rooms[2][9] = new Room("Win room!");
-	return rooms;
-}
+	Room* crossroads = new Room("crossroads", "You enter a large open space. Passages lead in every direction.");
+	Room* passageWay = new Room("passageway", "You enter a narrow passageway, there is barely room to breathe.");
 
-ZorkGame::~ZorkGame() {
-	delete player;
+	rooms[2][0] = new Room("small room", "You see before you a small enclosed room. There is not much here.");
+	rooms[2][1] = crossroads;
+	rooms[1][1] = new Room("something shiny", "You enter an ornately decorated room. On top of a plinth lies a sword.");
+	rooms[1][1]->inventory->addItem(swordItem);
+	rooms[1][3] = new Room("damp room", "As you enter a dark dank room a putrid smell fills your nostrils. Something is growing on the walls.");
+	rooms[1][3]->inventory->addItem(poisonBerryItem);
+	rooms[2][2] = new Room("wolf's den", "You enter into a wolf's den. There are animal carcasses scattered across the room.");
+//	rooms[2][2]->setEnemy(littleBadWolf);
+	rooms[2][3] = crossroads;
+	rooms[1][3] = passageWay;
+	rooms[0][3] = new Room("a mysterious glow", "As you enter this room you feel an ancient energy. Something special lies here.");
+	rooms[0][3]->inventory->addItem(crystalBall);
+	rooms[3][3] = passageWay;
+	rooms[4][3] = passageWay;
+	rooms[5][3] = new Room("beautiful garden", "A sweet smell of berries fills the room. Many beautiful plants decorate the walls.");
+	rooms[5][3]->inventory->addItem(berryItem);
+	rooms[5][3]->inventory->addItem(berryItem);
+	rooms[2][4] = new Room("wolf's den", "You enter into a wolf's den. There are animal carcasses scattered across the room.");
+//	rooms[2][4]->setEnemy(badWolf);
+	rooms[2][5] = new Room("gaping chasm", "A gaping chasm stretches before you. On the opposite side you can see a door, but it seems impossible to reach.");
+	rooms[2][7] = new Room("gaping chasm", "You are on the other side of the chasm. To return seems impossible.");
+	rooms[1][7] = new Room("dark cave", "There doesn't seem to be much here.");
+	rooms[3][7] = passageWay;
+	rooms[4][7] = new Room("purple garden", "A garden full of purple plants lies before you. They look delicous.");
+	rooms[4][7]->inventory->addItem(poisonBerryItem);
+	rooms[2][8] = new Room("wolf's den", "You enter into a wolf's den. There are animal carcasses scattered across the room.");
+//	rooms[2][8]->setEnemy(bigBadWolf);
+	rooms[2][9] = new Room("fresh air", "A beautiful vista stretches out before you, and you feel a fresh breeze on your face. You are free.");
+	return rooms;
 }
 
 Inventory* ZorkGame::getPlayerInventory() {
@@ -106,7 +111,7 @@ void ZorkGame::placeSelectedItem() {
 }
 
 string ZorkGame::getCurrentRoomInfo() {
-	return map->getCurrentRoom()->longDescription() + "\n" + map->getExitString();
+	return map->getCurrentRoom()->getLongDescription() + "\n\n" + map->getExitString();
 }
 
 void ZorkGame::go(Direction direction) {
@@ -145,8 +150,8 @@ string ZorkGame::attackEnemy() {
 	if (enemy->getHealth() == 0) {
 		logString += "\nYour final blow defeats the " + enemy->getName() + ", it drops something on the ground as it dies...";
 		map->getCurrentRoom()->inventory->addItem(enemy->getItem());
-		map->getCurrentRoom()->setEnemy(NULL);
 		delete enemy;
+		map->getCurrentRoom()->setEnemy(NULL);
 	}
 	return logString;
 }
@@ -182,8 +187,8 @@ string ZorkGame::playDead() {
 	Enemy* enemy = map->getCurrentRoom()->getEnemy();
 
 	if(fleeChance <= 15) {
-		map->getCurrentRoom()->setEnemy(NULL);
 		delete enemy;
+		map->getCurrentRoom()->setEnemy(NULL);
 		return "Surprisingly the enemy falls for your trick and presumes you dead. It moves on in search other opponents.";
 	} else {
 		int attackDamage = (int)(enemy->getAttack() * 1.5);
@@ -193,9 +198,9 @@ string ZorkGame::playDead() {
 }
 
 int ZorkGame::getRandom(int min, int max) {
-	std::random_device rd; // obtain a random number from hardware
-	std::mt19937 eng(rd()); // seed the generator
-	std::uniform_int_distribution<> distr(min, max);
+	random_device rd; // obtain a random number from hardware
+	mt19937 eng(rd()); // seed the generator
+	uniform_int_distribution<> distr(min, max);
 	return distr(eng);
 }
 

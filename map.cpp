@@ -95,16 +95,16 @@ string Map::getExitString() {
 	int eastExit = col + 1;
 
 	if(northExit > 0 && northExit < numRows && rooms[northExit][col] != NULL) {
-		exitString += "To the north lies a " + rooms[northExit][col]->shortDescription() + ".\n";
+		exitString += "To the north lies a " + rooms[northExit][col]->getShortDescription() + ".\n";
 	}
 	if(eastExit > 0 && eastExit < numCols && rooms[row][eastExit] != NULL) {
-		exitString += "To the east lies a " + rooms[row][eastExit]->shortDescription() + ".\n";
+		exitString += "To the east lies a " + rooms[row][eastExit]->getShortDescription() + ".\n";
 	}
 	if(southExit > 0 && southExit < numRows && rooms[southExit][col] != NULL) {
-		exitString += "To the south lies a " + rooms[southExit][col]->shortDescription() + ".\n";
+		exitString += "To the south lies a " + rooms[southExit][col]->getShortDescription() + ".\n";
 	}
 	if(westExit > 0 && westExit < numCols && rooms[row][westExit] != NULL) {
-		exitString += "To the west lies a " + rooms[row][westExit]->shortDescription() + ".\n";
+		exitString += "To the west lies a " + rooms[row][westExit]->getShortDescription() + ".\n";
 	}
 	return exitString;
 }

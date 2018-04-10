@@ -81,13 +81,13 @@ outline: none;
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>431</width>
-      <height>101</height>
+      <width>661</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="text">
@@ -96,37 +96,8 @@ outline: none;
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
-   </widget>
-   <widget class="QLabel" name="mapLabel">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>10</y>
-      <width>111</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>[h] --- [f] --- [g]
-         |         
-         |         
-[c] --- [a] --- [b]
-         |         
-         |         
-[i] --- [d] --- [e]
- |                 
- |                 
-[j]                </string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
