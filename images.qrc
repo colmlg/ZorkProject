@@ -32,5 +32,6 @@
         <file>images/items/Wood_01.png</file>
         <file>images/emptyItemSlot.png</file>
         <file>images/enemies/wolf_forest.png</file>
+        <file>images/enemies/monster_cave.png</file>
     </qresource>
 </RCC>

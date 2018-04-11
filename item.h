@@ -5,7 +5,7 @@
 #include <functional>
 
 enum ItemType {
-	teleportBall, sword, berry, poisonBerry
+	teleportBall, sword, berry, poisonBerry, fireball, treasure
 };
 
 class Item {

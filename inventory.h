@@ -9,7 +9,6 @@ class Inventory {
 private:
     std::vector <Item*> items;
 public:
-	~Inventory();
 	void addItem(Item* item);
     std::vector <Item*> getItems();
     void selectItem(int index);

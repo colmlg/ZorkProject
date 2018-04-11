@@ -2,10 +2,6 @@
 
 Entity::~Entity() {}
 
-int Entity::getAttack() {
-	return attack;
-}
-
 int Entity::getHealth() {
 	return health;
 }

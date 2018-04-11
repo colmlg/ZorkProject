@@ -13,6 +13,10 @@ string Enemy::getName() {
 	return name;
 }
 
+int Enemy::getAttack() {
+	return attack;
+}
+
 double Enemy::getCurrentHealthPercentage() {
 	return ((double) health / (double) maxHealth) * 100.0;
 }

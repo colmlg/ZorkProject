@@ -26,7 +26,6 @@ Item::Item(ItemType type) {
 		longDescription = "A shiny metal sword.";
 		shortDescription = "sword";
 		consumable = false;
-		actionDescription = "You are teleported to a new room.";
 		icon = new QIcon(QString::fromStdString(":/images/items/metal_sword.png"));
 		break;
 
@@ -44,6 +43,18 @@ Item::Item(ItemType type) {
 		consumable = true;
 		actionDescription = "Ouch, the berry turned out to be poisonous! You have been dealt " + to_string(Constants::poisonBerryDamage) + " damage.";
 		icon = new QIcon(QString::fromStdString(":/images/items/Berry_02.png"));
+		break;
+	case fireball:
+		longDescription = "A glowing ball of fire.";
+		shortDescription = "fireball";
+		consumable = false;
+		icon = new QIcon(QString::fromStdString(":/images/items/Crystal Ball_02.png"));
+		break;
+	case treasure:
+		longDescription = "Some very valuable treasure.";
+		shortDescription = "treasure";
+		consumable = false;
+		icon = new QIcon(QString::fromStdString(":/images/items/Ornament_03.png"));
 		break;
 	}
 }

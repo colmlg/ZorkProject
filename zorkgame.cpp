@@ -45,10 +45,13 @@ Room*** ZorkGame::createRooms() {
 		return true;
 	};
 
+	Item* treasureItem = new Item(treasure);
 	Weapon* swordItem = new Weapon(sword);
-	Enemy* littleBadWolf = new Enemy(5, 20, "little bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
-	Enemy* badWolf = new Enemy(10, 30, "bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
-	Enemy* bigBadWolf = new Enemy(15, 50, "big bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
+	Weapon* fireballItem = new Weapon(fireball);
+
+	Enemy* littleBadWolf = new Enemy(5, 1, "little bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
+	Enemy* badWolf = new Enemy(10, 1, "bad wolf", fireballItem, ":/images/enemies/wolf_forest.png");
+	Enemy* caveMonster = new Enemy(15, 1, "cave monster", treasureItem, ":/images/enemies/monster_cave.png");
 
 	rooms[2][0] = new Room("small room", "You see before you a small enclosed room. There is not much here.");
 	rooms[2][1] = new Room("crossroads", "You enter a large open space. Passages lead in every direction.");
@@ -67,15 +70,15 @@ Room*** ZorkGame::createRooms() {
 	rooms[5][3] = new Room("beautiful garden", "A sweet smell of berries fills the room. Many beautiful plants decorate the walls.");
 	rooms[5][3]->getInventory().addItem(berryItem);
 	rooms[2][4] = new Room("wolf's den", "You enter into a wolf's den. There are animal carcasses scattered across the room.");
-//	rooms[2][4]->setEnemy(badWolf);
+	rooms[2][4]->setEnemy(badWolf);
 	rooms[2][5] = new Room("gaping chasm", "A gaping chasm stretches before you. On the opposite side you can see a door, but it seems impossible to reach.");
 	rooms[2][7] = new Room("gaping chasm", "You are on the other side of the chasm. To return seems impossible.");
 	rooms[1][7] = new Room("dark cave", "There doesn't seem to be much here.");
 	rooms[3][7] = new Room("passageway", "You enter a narrow passageway, there is barely room to breathe.");
 	rooms[4][7] = new Room("purple garden", "A garden full of purple plants lies before you. They look delicous.");
 	rooms[4][7]->getInventory().addItem(poisonBerryItem);
-	rooms[2][8] = new Room("wolf's den", "You enter into a wolf's den. There are animal carcasses scattered across the room.");
-//	rooms[2][8]->setEnemy(bigBadWolf);
+	rooms[2][8] = new Room("dark cave", "You enter a dark damp cave. A horrifying monster appears before you.");
+	rooms[2][8]->setEnemy(caveMonster);
 	rooms[2][9] = new Room("fresh air", "A beautiful vista stretches out before you, and you feel a fresh breeze on your face. You are free.");
 	return rooms;
 }
@@ -87,7 +90,6 @@ void ZorkGame::moveSelectedItem(Inventory& fromInventory, Inventory& toInventory
 			toInventory.items.push_back(fromInventory.items[i]);
 		}
 	}
-
 }
 
 void ZorkGame::takeSelectedItem() {

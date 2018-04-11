@@ -6,6 +6,9 @@ Weapon::Weapon(ItemType itemType)
     case sword:
 		damageMultiplier = 2;
         break;
+	case fireball:
+		damageMultiplier = 3;
+		break;
     default:
         damageMultiplier = 1;
     }

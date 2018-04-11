@@ -15,6 +15,7 @@ private:
 public:
 	Enemy(int attack, int health, string name, Item* itemDrop, string imagePath);
 	string getName();
+	virtual int getAttack();
 	double getCurrentHealthPercentage();
 	Item* getItem();
 	string getImagePath();
