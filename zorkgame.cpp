@@ -49,9 +49,9 @@ Room*** ZorkGame::createRooms() {
 	Weapon* swordItem = new Weapon(sword);
 	Weapon* fireballItem = new Weapon(fireball);
 
-	Enemy* littleBadWolf = new Enemy(5, 1, "little bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
-	Enemy* badWolf = new Enemy(10, 1, "bad wolf", fireballItem, ":/images/enemies/wolf_forest.png");
-	Enemy* caveMonster = new Enemy(15, 1, "cave monster", treasureItem, ":/images/enemies/monster_cave.png");
+	Enemy* littleBadWolf = new Enemy(5, 20, "little bad wolf", berryItem, ":/images/enemies/wolf_forest.png");
+	Enemy* badWolf = new Enemy(10, 30, "bad wolf", fireballItem, ":/images/enemies/wolf_forest.png");
+	Enemy* caveMonster = new Enemy(15, 50, "cave monster", treasureItem, ":/images/enemies/monster_cave.png");
 
 	rooms[2][0] = new Room("small room", "You see before you a small enclosed room. There is not much here.");
 	rooms[2][1] = new Room("crossroads", "You enter a large open space. Passages lead in every direction.");
