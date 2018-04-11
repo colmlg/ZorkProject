@@ -15,6 +15,7 @@ private:
 	string shortDescription;
 	string longDescription;
 	Enemy* enemy;
+	Inventory inventory;
 
 public:
 	Room(string shortDescription, string longDescription);
@@ -22,10 +23,10 @@ public:
     int numberOfItems();
 	string getShortDescription();
 	string getLongDescription();
-	Inventory* inventory;
     void setEnemy(Enemy* enemy);
 	bool hasEnemy();
 	Enemy* getEnemy();
+	Inventory& getInventory();
 };
 
 #endif

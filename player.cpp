@@ -7,7 +7,6 @@ Player::Player() {
 
 Player::~Player() {
 	delete weapon;
-	delete inventory;
 }
 
 void Player::setWeapon(Weapon* weapon) {
@@ -26,5 +25,9 @@ Weapon* Player::takeWeapon() {
 
 int Player::getAttack(){
     return weapon == NULL ? attack : attack * weapon->getDamageMuliplier();
+}
+
+Inventory& Player::getInventory() {
+	return inventory;
 }
 

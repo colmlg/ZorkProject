@@ -67,6 +67,7 @@ private:
 	void displayBattleDialog();
 	void executeBattleOption(string logMessage);
 	void checkGameState();
+	void restartGame();
 };
 
 #endif // MAINWINDOW_H

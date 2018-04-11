@@ -4,12 +4,12 @@ Room::Room(string shortDescription, string longDescription) {
 	this->shortDescription = shortDescription;
 	this->longDescription = longDescription;
 
-	inventory = new Inventory();
+//	inventory = new Inventory();
 	enemy = NULL;
 }
 
 Room::~Room() {
-	delete inventory;
+//	delete inventory;
 	delete enemy;
 }
 
@@ -31,4 +31,8 @@ bool Room::hasEnemy() {
 
 Enemy* Room::getEnemy() {
 	return enemy;
+}
+
+Inventory& Room::getInventory() {
+	return inventory;
 }

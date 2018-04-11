@@ -8,19 +8,7 @@ Inventory::~Inventory() {
 }
 
 void Inventory::addItem(Item* item) {
-    items.push_back(item);
-}
-
-Item* Inventory::takeSelectedItem() {
-    for (unsigned int i = 0; i < items.size(); i++) {
-        Item* item = items[i];
-		if (item->isSelected()) {
-            items.erase(items.begin() + i);
-            return item;
-        }
-    }
-    
-    return NULL;
+	items.push_back(item);
 }
 
 void Inventory::selectItem(int index) {

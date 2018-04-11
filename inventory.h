@@ -5,16 +5,17 @@
 #include <string>
 
 class Inventory {
+	friend class ZorkGame;
 private:
     std::vector <Item*> items;
 public:
 	~Inventory();
-    void addItem(Item* item);
-	Item* takeSelectedItem();
+	void addItem(Item* item);
     std::vector <Item*> getItems();
     void selectItem(int index);
     void deselectItems();
     int getNumberOfItems();
     void removeItem(int index);
+	friend void moveSelectedItem(Inventory& fromInventory, Inventory& toInventory);
 };
 #endif /* INVENTORY_H */

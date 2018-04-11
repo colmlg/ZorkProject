@@ -51,7 +51,8 @@ HEADERS += \
     mainwindow.h \
     player.h \
     room.h \
-    weapon.h
+    weapon.h \
+    mapposition.h
 
 FORMS += \
         mainwindow.ui \

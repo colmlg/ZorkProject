@@ -12,8 +12,8 @@ using namespace std;
 class ZorkGame {
 private:
 	Player* player;
-	Map* map;
-	void moveSelectedItem(Inventory* fromInventory, Inventory* toInventory);
+	GameMap* map;
+	void moveSelectedItem(Inventory& fromInventory, Inventory& toInventory);
 	int getRandom(int min, int max);
 	Room*** createRooms();
 
@@ -22,8 +22,6 @@ public:
 	~ZorkGame();
 	//MARK: Getters & setters
 	string getCurrentRoomInfo();
-    Inventory* getPlayerInventory();
-    Inventory* getCurrentRoomInventory();
     Room* getCurrentRoom();
 	Player* getPlayer();
 	bool hasPlayerWon();

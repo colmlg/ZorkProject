@@ -6,16 +6,17 @@
 
 class Player: public Entity {
 private:
+	Inventory inventory;
     Weapon* weapon = NULL;
 
 public:
 	Player();
 	~Player();
-	Inventory* inventory = new Inventory();
 	void setWeapon(Weapon* weapon);
 	Weapon* takeWeapon();
 	Weapon* getWeapon();
     int getAttack();
+	Inventory& getInventory();
 };
 
 #endif /*PLAYER_H_*/

@@ -46,26 +46,29 @@ void MainWindow::displayCurrentRoomInfo() {
 void MainWindow::checkGameState() {
 	if (zork->hasPlayerLost()) {
 		displayAlert("Oh no, game over! You have lost all your health.\nPress OK to start again.");
-		ui->gameLog->setText("");
-		delete zork;
-		zork = new ZorkGame();
-		displayCurrentRoomInfo();
+		restartGame();
 	} else if(zork->hasPlayerWon()) {
 		displayAlert("Congratulations, you beat the final boss and won the game!\nYour score is: " + to_string(zork->getScore()) + "\nPress OK to start again.");
-		ui->gameLog->setText("");
-		delete zork;
-		zork = new ZorkGame();
-		displayCurrentRoomInfo();
+		restartGame();
 	}
 }
 
+void MainWindow::restartGame() {
+	removeInventoryItemSelectionFrame();
+	removeRoomItemSelectionFrame();
+	ui->gameLog->setText("");
+	delete zork;
+	zork = new ZorkGame();
+	displayCurrentRoomInfo();
+}
+
 void MainWindow::setRoomItems() {
-	vector<Item*> items = zork->getCurrentRoomInventory()->getItems();
+	vector<Item*> items = zork->getCurrentRoom()->getInventory().getItems();
 	setItems(roomItemButtons, items);
 }
 
 void MainWindow::setInventoryItems() {
-	vector<Item*> items = zork->getPlayerInventory()->getItems();
+	vector<Item*> items = zork->getPlayer()->getInventory().getItems();
 	setItems(inventoryItemButtons, items);
 }
 
@@ -104,7 +107,7 @@ void MainWindow::displayBattleDialog() {
 }
 
 void MainWindow::goToRoom(Direction direction) {
-	zork->getCurrentRoomInventory()->deselectItems();
+	zork->getCurrentRoom()->getInventory().deselectItems();
     removeRoomItemSelectionFrame();
     ui->takeButton->setEnabled(false);
 	zork->go(direction);
@@ -151,7 +154,7 @@ void MainWindow::on_westButton_clicked() {
 }
 
 void MainWindow::on_takeButton_clicked() {
-	if (zork->getPlayerInventory()->getNumberOfItems() >= Constants::itemSlots) {
+	if (zork->getPlayer()->getInventory().getNumberOfItems() >= Constants::itemSlots) {
         displayAlert("Your inventory is full!\nTry placing an item in the room before taking another one.");
         return;
     }
@@ -163,7 +166,7 @@ void MainWindow::on_takeButton_clicked() {
 }
 
 void MainWindow::on_putButton_clicked() {
-	if (zork->getCurrentRoomInventory()->getNumberOfItems() >= Constants::itemSlots) {
+	if (zork->getCurrentRoom()->getInventory().getNumberOfItems() >= Constants::itemSlots) {
         displayAlert("The room is full of items!\nTry taking an item from the room before placing another one.");
         return;
     }
@@ -194,7 +197,7 @@ void MainWindow::on_roomItem3_clicked() {
 void MainWindow::selectRoomItem(const int itemIndex) {
 	removeRoomItemSelectionFrame();
 	ui->takeButton->setEnabled(true);
-	zork->getCurrentRoomInventory()->selectItem(itemIndex);
+	zork->getCurrentRoom()->getInventory().selectItem(itemIndex);
 	roomItemButtons[itemIndex]->setStyleSheet("QPushButton { border: 2px solid blue; border-radius: 3px; outline: none; }");
 }
 
@@ -213,12 +216,12 @@ void MainWindow::on_inventoryItem3_clicked() {
 
 void MainWindow::selectInventoryItem(const int itemIndex) {
 	removeInventoryItemSelectionFrame();
-	Inventory* inventory = zork->getPlayerInventory();
-	ui->useButton->setEnabled(inventory->getItems()[itemIndex]->action != NULL);
-	ui->equipButton->setEnabled(inventory->getItems()[itemIndex]->isWeapon() && zork->getPlayer()->getWeapon() == NULL);
+	Inventory& inventory = zork->getPlayer()->getInventory();
+	ui->useButton->setEnabled(inventory.getItems()[itemIndex]->action != NULL);
+	ui->equipButton->setEnabled(inventory.getItems()[itemIndex]->isWeapon() && zork->getPlayer()->getWeapon() == NULL);
 	ui->putButton->setEnabled(true);
 	ui->unequipButton->setEnabled(false);
-	inventory->selectItem(itemIndex);
+	inventory.selectItem(itemIndex);
 	inventoryItemButtons[itemIndex]->setStyleSheet("QPushButton { border: 2px solid red; border-radius: 3px; outline: none; }");
 }
 
@@ -247,7 +250,7 @@ void MainWindow::displayAlert(const string message) {
 }
 
 void MainWindow::on_useButton_clicked() {
-	vector<Item*> items = zork->getPlayerInventory()->getItems();
+	vector<Item*> items = zork->getPlayer()->getInventory().getItems();
 	for (unsigned int i = 0 ; i < items.size(); i++) {
 		if (items[i]->isSelected() && items[i]->action != NULL) {
 			if (!items[i]->action()) {
@@ -258,7 +261,7 @@ void MainWindow::on_useButton_clicked() {
 			log(items[i]->getActionDescription());
 
 			if(items[i]->isConsumable()) {
-				zork->getPlayerInventory()->removeItem(i);
+				zork->getPlayer()->getInventory().removeItem(i);
 				removeInventoryItemSelectionFrame();
 				ui->putButton->setEnabled(false);
 				ui->useButton->setEnabled(false);
@@ -280,11 +283,11 @@ void MainWindow::on_weaponSlot_clicked() {
 
 void MainWindow::on_equipButton_clicked() {
     removeInventoryItemSelectionFrame();
-	vector<Item*> items = zork->getPlayerInventory()->getItems();
+	vector<Item*> items = zork->getPlayer()->getInventory().getItems();
     for(unsigned int i = 0 ; i < items.size(); i++) {
         if(items[i]->isSelected()) {
 			zork->getPlayer()->setWeapon((Weapon*) items[i]);
-			zork->getPlayerInventory()->removeItem(i);
+			zork->getPlayer()->getInventory().removeItem(i);
             ui->putButton->setEnabled(false);
             ui->equipButton->setEnabled(false);
             displayCurrentRoomInfo();
@@ -294,14 +297,14 @@ void MainWindow::on_equipButton_clicked() {
 }
 
 void MainWindow::on_unequipButton_clicked() {
-	vector<Item*> items = zork->getPlayerInventory()->getItems();
+	vector<Item*> items = zork->getPlayer()->getInventory().getItems();
     if (items.size() >= 4) {
         displayAlert("Your inventory is too full to unequip this item.");
         return;
     }
 
 	Item* weapon = (Item*) zork->getPlayer()->takeWeapon();
-	zork->getPlayerInventory()->addItem(weapon);
+	zork->getPlayer()->getInventory().addItem(weapon);
     ui->unequipButton->setEnabled(false);
     ui->weaponSlot->setStyleSheet("");
     displayCurrentRoomInfo();
